@@ -6,20 +6,24 @@ st.set_page_config(layout="wide")
 
 st.sidebar.info(
     """
-    - Web App URL: <https://streamlit.geemap.org>
-    - GitHub repository: <https://github.com/giswqs/streamlit-geospatial>
+    - Hugging Face: <https://huggingface.co/Chancee12>
+    - GitHub repository: <https://github.com/chancee12/>
     """
 )
 
 st.sidebar.title("Contact")
 st.sidebar.info(
     """
-    Qiusheng Wu: <https://wetlands.io>
-    [GitHub](https://github.com/giswqs) | [Twitter](https://twitter.com/giswqs) | [YouTube](https://www.youtube.com/c/QiushengWu) | [LinkedIn](https://www.linkedin.com/in/qiushengwu)
+    Chancee Vincent, Axim Geospatial Solutions Architect:
+    [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6) | [GitHub](https://github.com/chancee12/)
+    
+    Axim Homepage:
+    [Axim Geospatial](https://www.aximgeo.com/)
+    
+    Additional Thank You, Qiusheng Wu:
+    [LinkedIn](https://www.linkedin.com/in/qiushengwu/)    
     """
 )
-
-
 def nlcd():
 
     # st.header("National Land Cover Database (NLCD)")
