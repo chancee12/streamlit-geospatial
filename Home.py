@@ -3,19 +3,24 @@ import leafmap.foliumap as leafmap
 
 st.set_page_config(layout="wide")
 
-st.sidebar.title("About")
 st.sidebar.info(
     """
-    - Web App URL: <https://streamlit.geemap.org>
-    - GitHub repository: <https://github.com/giswqs/streamlit-geospatial>
+    - Hugging Face: <https://huggingface.co/Chancee12>
+    - GitHub repository: <https://github.com/chancee12/>
     """
 )
 
 st.sidebar.title("Contact")
 st.sidebar.info(
     """
-    Qiusheng Wu: <https://wetlands.io>
-    [GitHub](https://github.com/giswqs) | [Twitter](https://twitter.com/giswqs) | [YouTube](https://www.youtube.com/c/QiushengWu) | [LinkedIn](https://www.linkedin.com/in/qiushengwu)
+    Chancee Vincent, Axim Geospatial Solutions Architect:
+    [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6) | [GitHub](https://github.com/chancee12/)
+    
+    Axim Homepage:
+    [Axim Geospatial](https://www.aximgeo.com/)
+    
+    Additional Thank You, Qiusheng Wu:
+    [LinkedIn](https://www.linkedin.com/in/qiushengwu/)    
     """
 )
 
@@ -23,19 +28,19 @@ st.sidebar.title("Support")
 st.sidebar.info(
     """
     If you want to reward my work, I'd love a cup of coffee from you. Thanks!
-    [buymeacoffee.com/giswqs](http://buymeacoffee.com/giswqs)
+    [buymeacoffee.com/giswqs](http://buymeacoffee.com/chanceevins)
     """
 )
 
 
-st.title("Streamlit for Geospatial Applications")
+st.title("Chancee's Hub for Geospatial Applications")
 
 st.markdown(
     """
     This multi-page web app demonstrates various interactive web apps created using [streamlit](https://streamlit.io) and open-source mapping libraries, 
     such as [leafmap](https://leafmap.org), [geemap](https://geemap.org), [pydeck](https://deckgl.readthedocs.io), and [kepler.gl](https://docs.kepler.gl/docs/keplergl-jupyter).
-    This is an open-source project and you are very welcome to contribute your comments, questions, resources, and apps as [issues](https://github.com/giswqs/streamlit-geospatial/issues) or 
-    [pull requests](https://github.com/giswqs/streamlit-geospatial/pulls) to the [GitHub repository](https://github.com/giswqs/streamlit-geospatial).
+    This is an open-source project and you are very welcome to contribute your comments, questions, resources, and apps as [issues](https://github.com/chancee12/streamlit-geospatial/issues) or 
+    [pull requests](https://github.com/chancee12/streamlit-geospatial/pulls) to the [GitHub repository](https://github.com/chancee12).
 
     """
 )
