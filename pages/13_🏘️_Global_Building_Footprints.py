@@ -13,7 +13,7 @@ def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
 
 st.sidebar.info(
     """
-    - Hugging Face: <https://huggingface.co/spaces/Chancee12>
+    - Hugging Face: <https://huggingface.co/Chancee12>
     - GitHub repository: <https://github.com/chancee12/>
     """
 )
