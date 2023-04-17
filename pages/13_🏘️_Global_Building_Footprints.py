@@ -22,7 +22,7 @@ st.sidebar.title("Contact")
 st.sidebar.info(
     """
     Chancee Vincent, Axim Geospatial Solutions Architect: <https://www.aximgeo.com/>
-    [GitHub](https://github.com/chancee12/) | [YouTube](https://www.youtube.com/c/QiushengWu) | [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6)
+    [GitHub](https://github.com/chancee12/) | [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6) | Additional Support by [LinkedIn](https://www.linkedin.com/in/qiushengwu/)
     """
 )
 
