@@ -2,16 +2,17 @@ import ee
 import geemap.foliumap as geemap
 import geopandas as gpd
 import streamlit as st
-ee.Authenticate()
-ee.Initialize()
-
+import json
+from google.oauth2.credentials import Credentials
 
 st.set_page_config(layout="wide")
 
-
 @st.cache(persist=True)
 def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
-    geemap.ee_initialize(token_name=token_name)
+    token = json.loads(st.secrets[token_name])
+    creds = Credentials.from_authorized_user_info(info=token)
+    ee.Initialize(creds)
+
 
 
 st.sidebar.info(
