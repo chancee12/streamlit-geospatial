@@ -83,6 +83,14 @@ with col2:
             st.error('No data available for the selected country.')
 
         layer_name = country
+        fc = None  # Initialize fc as None
+        try:
+            fc = ee.FeatureCollection(
+                f'projects/sat-io/open-datasets/MSBuildings/{country}')
+        except:
+            st.error('No data available for the selected country.')
+
+
 
     color = st.color_picker('Select a color', '#FF5500')
 
@@ -90,14 +98,15 @@ with col2:
 
     split = st.checkbox("Split-panel map")
 
-    if split:
-        left = geemap.ee_tile_layer(fc.style(**style), {}, 'Left')
-        right = left
-        Map.split_map(left, right)
-    else:
-        Map.addLayer(fc.style(**style), {}, layer_name)
+    if fc is not None:  # Check if fc is not None before adding the layer
+        if split:
+            left = geemap.ee_tile_layer(fc.style(**style), {}, 'Left')
+            right = left
+            Map.split_map(left, right)
+        else:
+            Map.addLayer(fc.style(**style), {}, layer_name)
 
-    Map.centerObject(fc.first(), zoom=16)
+        Map.centerObject(fc.first(), zoom=16)
 
     with st.expander("Data Sources"):
         st.info(
