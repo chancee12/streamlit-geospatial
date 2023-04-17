@@ -73,23 +73,19 @@ with col2:
     
     if country == 'USA':
         state = st.selectbox('Select a state', state_names,
-                             index=state_names.index('Florida'))
+                            index=state_names.index('Florida'))
         layer_name = state
-
-        try:
-            fc = ee.FeatureCollection(
-                f'projects/sat-io/open-datasets/MSBuildings/US/{state}')
-        except:
-            st.error('No data available for the selected state.')
+        fc = ee.FeatureCollection(
+            f'projects/sat-io/open-datasets/MSBuildings/US/{state}')
 
     else:
-        try:
-            fc = ee.FeatureCollection(
-                f'projects/sat-io/open-datasets/MSBuildings/{country}')
-        except:
-            st.error('No data available for the selected country.')
-
+        fc = ee.FeatureCollection(
+            f'projects/sat-io/open-datasets/MSBuildings/{country}')
         layer_name = country
+
+    # Check if the FeatureCollection is empty
+    if fc.size().getInfo() == 0:
+        st.error('No data available for the selected country or state.')
 
 
     color = st.color_picker('Select a color', '#FF5500')
