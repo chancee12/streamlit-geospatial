@@ -21,7 +21,7 @@ st.sidebar.info(
 st.sidebar.title("Contact")
 st.sidebar.info(
     """
-    Qiusheng Wu: <https://wetlands.io>
+    CHANCEEEEEEEEEEE: <https://wetlands.io>
     [GitHub](https://github.com/giswqs) | [Twitter](https://twitter.com/giswqs) | [YouTube](https://www.youtube.com/c/QiushengWu) | [LinkedIn](https://www.linkedin.com/in/qiushengwu)
     """
 )
@@ -31,7 +31,7 @@ st.title("Global Building Footprints")
 col1, col2 = st.columns([8, 2])
 
 
-@st.cache_data
+@st.cache
 def read_data(url):
     return gpd.read_file(url)
 
@@ -83,14 +83,8 @@ with col2:
             st.error('No data available for the selected country.')
 
         layer_name = country
+
         fc = None  # Initialize fc as None
-        try:
-            fc = ee.FeatureCollection(
-                f'projects/sat-io/open-datasets/MSBuildings/{country}')
-        except:
-            st.error('No data available for the selected country.')
-
-
 
     color = st.color_picker('Select a color', '#FF5500')
 
