@@ -7,7 +7,6 @@ from google.oauth2.credentials import Credentials
 
 st.set_page_config(layout="wide")
 
-@st.cache(persist=True)
 def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
     token = json.loads(st.secrets[token_name])
     creds = Credentials.from_authorized_user_info(info=token)
