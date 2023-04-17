@@ -22,16 +22,22 @@ def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
 
 st.sidebar.info(
     """
-    - Web App URL: <https://streamlit.geemap.org>
-    - GitHub repository: <https://github.com/giswqs/streamlit-geospatial>
+    - Hugging Face: <https://huggingface.co/Chancee12>
+    - GitHub repository: <https://github.com/chancee12/>
     """
 )
 
 st.sidebar.title("Contact")
 st.sidebar.info(
     """
-    Qiusheng Wu: <https://wetlands.io>
-    [GitHub](https://github.com/giswqs) | [Twitter](https://twitter.com/giswqs) | [YouTube](https://www.youtube.com/c/QiushengWu) | [LinkedIn](https://www.linkedin.com/in/qiushengwu)
+    Chancee Vincent, Axim Geospatial Solutions Architect:
+    [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6) | [GitHub](https://github.com/chancee12/)
+    
+    Axim Homepage:
+    [Axim Geospatial](https://www.aximgeo.com/)
+    
+    Additional Thank You, Qiusheng Wu:
+    [LinkedIn](https://www.linkedin.com/in/qiushengwu/)    
     """
 )
 
@@ -237,7 +243,7 @@ def app():
     st.markdown(
         """
         An interactive web app for creating [Landsat](https://developers.google.com/earth-engine/datasets/catalog/landsat)/[GOES](https://jstnbraaten.medium.com/goes-in-earth-engine-53fbc8783c16) timelapse for any location around the globe. 
-        The app was built using [streamlit](https://streamlit.io), [geemap](https://geemap.org), and [Google Earth Engine](https://earthengine.google.com). For more info, check out my streamlit [blog post](https://blog.streamlit.io/creating-satellite-timelapse-with-streamlit-and-earth-engine). 
+        The app was built using [streamlit](https://streamlit.io), [geemap](https://geemap.org), and [Google Earth Engine](https://earthengine.google.com). 
     """
     )
 
