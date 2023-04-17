@@ -24,6 +24,17 @@ st.sidebar.info(
     """
 )
 
+st.sidebar.title("Support")
+st.sidebar.write(
+    """
+    If you want to reward my work, I'd love a cup of coffee from you. Thanks!
+    """
+)
+st.sidebar.markdown(
+    "[buymeacoffee.com/giswqs](https://www.buymeacoffee.com/chanceevins)",
+    unsafe_allow_html=True
+)
+
 
 # Customize page title
 st.title("Streamlit for Geospatial Applications")
