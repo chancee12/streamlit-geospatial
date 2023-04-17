@@ -63,7 +63,8 @@ with col2:
 
     country = st.selectbox('Select a country', country_names,
                            index=country_names.index('USA'))
-
+    fc = None
+    
     if country == 'USA':
         state = st.selectbox('Select a state', state_names,
                              index=state_names.index('Florida'))
@@ -84,7 +85,6 @@ with col2:
 
         layer_name = country
 
-        fc = None  # Initialize fc as None
 
     color = st.color_picker('Select a color', '#FF5500')
 
