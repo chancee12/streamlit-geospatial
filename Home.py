@@ -25,14 +25,15 @@ st.sidebar.info(
 )
 
 st.sidebar.title("Support")
-st.sidebar.info(
+st.sidebar.write(
     """
     If you want to reward my work, I'd love a cup of coffee from you. Thanks!
-    [buymeacoffee.com/giswqs](http://buymeacoffee.com/giswqs)
     """
 )
-
-
+st.sidebar.markdown(
+    "[buymeacoffee.com/giswqs](https://www.buymeacoffee.com/chanceevins)",
+    unsafe_allow_html=True
+)
 
 st.title("Chancee's Hub for Geospatial Applications")
 
