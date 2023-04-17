@@ -2,6 +2,9 @@ import ee
 import geemap.foliumap as geemap
 import geopandas as gpd
 import streamlit as st
+ee.Authenticate()
+ee.Initialize()
+
 
 st.set_page_config(layout="wide")
 
