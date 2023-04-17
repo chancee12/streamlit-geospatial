@@ -24,7 +24,7 @@ st.sidebar.write(
     """
 )
 st.sidebar.markdown(
-    "[buymeacoffee.com/giswqs](https://www.buymeacoffee.com/chanceevins)",
+    "[buymeacoffee.com/chanceevins](https://www.buymeacoffee.com/chanceevins)",
     unsafe_allow_html=True
 )
 st.title("Streamlit for Geospatial Applications")
