@@ -31,7 +31,7 @@ st.title("Global Building Footprints")
 col1, col2 = st.columns([8, 2])
 
 
-@st.cache
+@st.cache_data
 def read_data(url):
     return gpd.read_file(url)
 
