@@ -23,7 +23,9 @@ st.sidebar.info(
     """
     Chancee Vincent, Axim Geospatial Solutions Architect: <https://www.aximgeo.com/>
     [GitHub](https://github.com/chancee12/) | [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6)
-    Additional Support | [LinkedIn](https://www.linkedin.com/in/qiushengwu/)
+    
+    Additional Support:
+    [LinkedIn](https://www.linkedin.com/in/qiushengwu/)    
     """
 )
 
