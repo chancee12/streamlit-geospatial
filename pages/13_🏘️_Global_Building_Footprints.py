@@ -13,7 +13,8 @@ def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
     creds = Credentials.from_authorized_user_info(info=token)
     ee.Initialize(creds)
 
-
+# Call the function to authenticate Earth Engine
+ee_authenticate()
 
 st.sidebar.info(
     """
