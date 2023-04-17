@@ -14,15 +14,16 @@ def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
 st.sidebar.info(
     """
     - Web App URL: <https://streamlit.geemap.org>
-    - GitHub repository: <https://github.com/giswqs/streamlit-geospatial>
+    - Hugging Face: <https://huggingface.co/spaces/Chancee12>
+    - GitHub repository: <https://github.com/chancee12/>
     """
 )
 
 st.sidebar.title("Contact")
 st.sidebar.info(
     """
-    CHANCEEEEEEEEEEE: <https://wetlands.io>
-    [GitHub](https://github.com/giswqs) | [Twitter](https://twitter.com/giswqs) | [YouTube](https://www.youtube.com/c/QiushengWu) | [LinkedIn](https://www.linkedin.com/in/qiushengwu)
+    Chancee Vincent, Axim Geospatial Solutions Architect: <https://www.aximgeo.com/>
+    [GitHub](https://github.com/chancee12/) | [YouTube](https://www.youtube.com/c/QiushengWu) | [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6)
     """
 )
 
