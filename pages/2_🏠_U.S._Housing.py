@@ -26,10 +26,7 @@ st.sidebar.info(
     [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6) | [GitHub](https://github.com/chancee12/)
     
     Axim Homepage:
-    [Axim Geospatial](https://www.aximgeo.com/)
-    
-    Additional Thank You, Qiusheng Wu:
-    [LinkedIn](https://www.linkedin.com/in/qiushengwu/)    
+    [Axim Geospatial](https://www.aximgeo.com/) 
     """
 )
 
