@@ -31,6 +31,18 @@ def check_password():
 
 if check_password():
     st.set_page_config(layout="wide")
+    st.markdown(
+    """
+    <style>
+    body {
+    background-image: url("https://media.giphy.com/media/BW51OCstarPBm/giphy.gif");
+    background-size: cover;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
     st.sidebar.title("Contact")
     st.sidebar.info(
