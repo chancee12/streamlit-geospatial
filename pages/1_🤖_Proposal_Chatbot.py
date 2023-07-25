@@ -12,7 +12,23 @@ st.set_page_config(
         'About': "Chancee's AI Assistant is designed specifically to revise government contracting proposals the best way possible. Utilizing OpenAI API, it assists in restructuring sentences, clarifying ambiguities, eliminating redundancies, and enhancing the overall presentation."
     }
 )
+st.sidebar.info(
+    """
+    - Hugging Face: <https://huggingface.co/Chancee12>
+    - GitHub repository: <https://github.com/chancee12/>
+    """
+)
 
+st.sidebar.title("Contact")
+st.sidebar.info(
+    """
+    Chancee Vincent, Axim Geospatial Solutions Architect:
+    [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6) | [GitHub](https://github.com/chancee12/)
+    
+    Axim Homepage:
+    [Axim Geospatial](https://www.aximgeo.com/) 
+    """
+)
 # Enhanced CSS for an improved and cool aesthetic
 st.markdown("""
     <style>
@@ -52,23 +68,7 @@ st.markdown('''
     * Lastly, site uses Chancee's Openai account and tokens, so be mindful of submissions while testing but have fun!
 ''', unsafe_allow_html=True)
 
-st.sidebar.info(
-    """
-    - Hugging Face: <https://huggingface.co/Chancee12>
-    - GitHub repository: <https://github.com/chancee12/>
-    """
-)
 
-st.sidebar.title("Contact")
-st.sidebar.info(
-    """
-    Chancee Vincent, Axim Geospatial Solutions Architect:
-    [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6) | [GitHub](https://github.com/chancee12/)
-    
-    Axim Homepage:
-    [Axim Geospatial](https://www.aximgeo.com/) 
-    """
-)
 
 # Your working chatbot.app.py file here
 openai.api_key = st.secrets["OPENAI_API_KEY"]
