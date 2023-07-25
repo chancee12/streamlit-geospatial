@@ -2,34 +2,42 @@ import streamlit as st
 import openai
 import time
 
-def app():
-    # Set up OpenAI API key
-    openai.api_key = st.secrets["OPENAI_API_KEY"]
+# Set up OpenAI API key
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-    # GPT-3 model to use for text revision
-    model_engine = "text-davinci-003"
+# GPT-3 model to use for text revision
+model_engine = "text-davinci-003"
 
-    st.title("Chancee's Proposal AI Assistant Beta V.1")
-    st.write('This AI assistant is designed specifically to revise government contracting proposals.')
-    
-    st.markdown('''
-    ## **Prompt Guidance**
-    The prompt box allows you to specify how you want the AI to approach revising your text. If you leave it blank, the default prompt, which instructs the AI to revise for clarity, structure, alignment with proposal requirements, professional appeal, and so on, will be used. If you enter your own prompt, it will replace the default and guide the AI's revision process. Remember, the AI is quite flexible, so feel free to get creative with your prompts!
-    ''')
+def revise_text(prompt, text_to_revise):
+    revised_text_response = openai.Completion.create(
+        engine=model_engine,
+        prompt=f"{prompt}\n\n{text_to_revise}",
+        max_tokens=2500,
+        temperature=0.75
+    )
 
-    def revise_text(prompt, text_to_revise):
-        revised_text_response = openai.Completion.create(
-            engine=model_engine,
-            prompt=f"{prompt}\n\n{text_to_revise}",
-            max_tokens=2500,
-            temperature=0.75
-        )
+    # Extract the revised text and strip leading and trailing white spaces.
+    revised_text = revised_text_response['choices'][0]['text'].strip()
 
-        # Extract the revised text and strip leading and trailing white spaces.
-        revised_text = revised_text_response['choices'][0]['text'].strip()
+    revision_length_percentage = (len(revised_text) / len(text_to_revise)) * 100
+    if revision_length_percentage > 100:
+        revision_length = f"{round(revision_length_percentage - 100, 1)}% longer than original"
+    else:
+        revision_length = f"{round(100 - revision_length_percentage, 1)}% shorter than original"
 
-        # ... Continue the rest of the revise_text function ...
+    revision_explanation_response = openai.Completion.create(
+        engine=model_engine,
+        prompt=f"Alright dude, I need you to give me a chill, straight-to-the-point explanation in your best surfer lingo. We're looking at some major changes to this text, and I want you to break down why we made these changes, all while keeping the government contracting proposal guidelines in mind. So, let's dive in, man:\n\nOriginal: {text_to_revise}\n\nRevised: {revised_text}",
+        max_tokens=1000,  # Increase max tokens for explanation
+        temperature=0.85  # Decrease temperature to make output more focused
+    )
 
+    # Extract the revision explanation and strip leading and trailing white spaces.
+    revision_explanation = revision_explanation_response['choices'][0]['text'].strip()
+
+    return revised_text, revision_length, revision_explanation
+
+def main_page():
     prompt_input = st.text_input("Enter the prompt for the AI:")
     user_input = st.text_area("Paste the text you'd like Chancee's AI Bot to revise:", height=200)
     submit_button = st.button("Submit")
@@ -50,10 +58,12 @@ def app():
         st.text_area("", value=user_input, height=200, max_chars=None, key=None)
 
         st.markdown("### **Revised Text:**")
-        st.text_area("", value=revised_text, height=200, max_chars=None, key=None)
+        st.text_area("", value=revised_text, height=200, max_chars=None, key=None)  # Changed to text_area
 
         st.markdown("### **Revision Length:**")
         st.code(revision_length, language='')
 
         st.markdown("### **Revision Explanation:**")
         st.text_area("", value=revision_explanation, height=200, max_chars=None, key=None)
+if __name__ == "__main__":
+    main_page()
