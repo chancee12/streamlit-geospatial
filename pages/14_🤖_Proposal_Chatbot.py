@@ -57,8 +57,6 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 model_engine = "text-davinci-003"
 
-st.markdown("<h1 style='text-align: center; color: #0000FF;'>Chancee's Proposal AI Assistant Beta V.1</h1>", unsafe_allow_html=True)
-
 def revise_text(prompt, text_to_revise):
     revised_text_response = openai.Completion.create(
         engine=model_engine,
