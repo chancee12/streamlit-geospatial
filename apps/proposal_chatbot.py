@@ -101,7 +101,7 @@ if prompt_input == '':
 if submit_button and user_input:
     with st.spinner("Generating revised text..."):
         revised_text, revision_length, revision_explanation = revise_text(prompt_input, user_input)
-        time.sleep(1)  # Simulating some processing time, remove this line in the actual implementation
+        time.sleep(1)  # Simulating some processing time, remove this line in the actual
 
     st.markdown("### **Original Text:**")
     st.text_area("", value=user_input, height=200, max_chars=None, key=None)
