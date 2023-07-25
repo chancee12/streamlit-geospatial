@@ -2,90 +2,120 @@ import ast
 import streamlit as st
 import leafmap.foliumap as leafmap
 
-st.set_page_config(layout="wide")
+def check_password():
+    """Returns `True` if the user had the correct password."""
 
-st.sidebar.info(
-    """
-    - Hugging Face: <https://huggingface.co/Chancee12>
-    - GitHub repository: <https://github.com/chancee12/>
-    """
-)
+    def password_entered():
+        """Checks whether a password entered by the user is correct."""
+        if st.session_state["password"] == st.secrets["password"]:
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # don't store password
+        else:
+            st.session_state["password_correct"] = False
 
-st.sidebar.title("Contact")
-st.sidebar.info(
-    """
-    Chancee Vincent, Axim Geospatial Solutions Architect:
-    [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6) | [GitHub](https://github.com/chancee12/)
-    
-    Axim Homepage:
-    [Axim Geospatial](https://www.aximgeo.com/)
-    """
-)
+    if "password_correct" not in st.session_state:
+        # First run, show input for password.
+        st.text_input(
+            "Password", type="password", on_change=password_entered, key="password"
+        )
+        return False
+    elif not st.session_state["password_correct"]:
+        # Password not correct, show input + error.
+        st.text_input(
+            "Password", type="password", on_change=password_entered, key="password"
+        )
+        st.error("😕 Password incorrect")
+        return False
+    else:
+        # Password correct.
+        return True
 
+if check_password():
 
-@st.cache_data
-def get_layers(url):
-    options = leafmap.get_wms_layers(url)
-    return options
+    st.set_page_config(layout="wide")
 
-
-def app():
-    st.title("Web Map Service (WMS)")
-    st.markdown(
+    st.sidebar.info(
         """
-    This app is a demonstration of loading Web Map Service (WMS) layers. Simply enter the URL of the WMS service 
-    in the text box below and press Enter to retrieve the layers. Go to https://apps.nationalmap.gov/services to find 
-    some WMS URLs if needed.
-    """
+        - Hugging Face: <https://huggingface.co/Chancee12>
+        - GitHub repository: <https://github.com/chancee12/>
+        """
     )
 
-    row1_col1, row1_col2 = st.columns([3, 1.3])
-    width = 800
-    height = 600
-    layers = None
+    st.sidebar.title("Contact")
+    st.sidebar.info(
+        """
+        Chancee Vincent, Axim Geospatial Solutions Architect:
+        [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6) | [GitHub](https://github.com/chancee12/)
+        
+        Axim Homepage:
+        [Axim Geospatial](https://www.aximgeo.com/)
+        """
+    )
 
-    with row1_col2:
 
-        esa_landcover = "https://services.terrascope.be/wms/v2"
-        url = st.text_input(
-            "Enter a WMS URL:", value="https://services.terrascope.be/wms/v2"
+    @st.cache_data
+    def get_layers(url):
+        options = leafmap.get_wms_layers(url)
+        return options
+
+
+    def app():
+        st.title("Web Map Service (WMS)")
+        st.markdown(
+            """
+        This app is a demonstration of loading Web Map Service (WMS) layers. Simply enter the URL of the WMS service 
+        in the text box below and press Enter to retrieve the layers. Go to https://apps.nationalmap.gov/services to find 
+        some WMS URLs if needed.
+        """
         )
-        empty = st.empty()
 
-        if url:
-            options = get_layers(url)
+        row1_col1, row1_col2 = st.columns([3, 1.3])
+        width = 800
+        height = 600
+        layers = None
 
-            default = None
-            if url == esa_landcover:
-                default = "WORLDCOVER_2020_MAP"
-            layers = empty.multiselect(
-                "Select WMS layers to add to the map:", options, default=default
+        with row1_col2:
+
+            esa_landcover = "https://services.terrascope.be/wms/v2"
+            url = st.text_input(
+                "Enter a WMS URL:", value="https://services.terrascope.be/wms/v2"
             )
-            add_legend = st.checkbox("Add a legend to the map", value=True)
-            if default == "WORLDCOVER_2020_MAP":
-                legend = str(leafmap.builtin_legends["ESA_WorldCover"])
-            else:
-                legend = ""
-            if add_legend:
-                legend_text = st.text_area(
-                    "Enter a legend as a dictionary {label: color}",
-                    value=legend,
-                    height=200,
+            empty = st.empty()
+
+            if url:
+                options = get_layers(url)
+
+                default = None
+                if url == esa_landcover:
+                    default = "WORLDCOVER_2020_MAP"
+                layers = empty.multiselect(
+                    "Select WMS layers to add to the map:", options, default=default
                 )
-
-        with row1_col1:
-            m = leafmap.Map(center=(36.3, 0), zoom=2)
-
-            if layers is not None:
-                for layer in layers:
-                    m.add_wms_layer(
-                        url, layers=layer, name=layer, attribution=" ", transparent=True
+                add_legend = st.checkbox("Add a legend to the map", value=True)
+                if default == "WORLDCOVER_2020_MAP":
+                    legend = str(leafmap.builtin_legends["ESA_WorldCover"])
+                else:
+                    legend = ""
+                if add_legend:
+                    legend_text = st.text_area(
+                        "Enter a legend as a dictionary {label: color}",
+                        value=legend,
+                        height=200,
                     )
-            if add_legend and legend_text:
-                legend_dict = ast.literal_eval(legend_text)
-                m.add_legend(legend_dict=legend_dict)
 
-            m.to_streamlit(height=height)
+            with row1_col1:
+                m = leafmap.Map(center=(36.3, 0), zoom=2)
+
+                if layers is not None:
+                    for layer in layers:
+                        m.add_wms_layer(
+                            url, layers=layer, name=layer, attribution=" ", transparent=True
+                        )
+                if add_legend and legend_text:
+                    legend_dict = ast.literal_eval(legend_text)
+                    m.add_legend(legend_dict=legend_dict)
+
+                m.to_streamlit(height=height)
 
 
-app()
+    app()
