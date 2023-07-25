@@ -18,9 +18,7 @@ st.sidebar.info(
     
     Axim Homepage:
     [Axim Geospatial](https://www.aximgeo.com/)
-    
-    Additional Thank You, Qiusheng Wu:
-    [LinkedIn](https://www.linkedin.com/in/qiushengwu/)    
+
     """
 )
 
