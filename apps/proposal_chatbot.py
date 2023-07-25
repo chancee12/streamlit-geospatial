@@ -1,7 +1,7 @@
 import streamlit as st
 from page import main_page
 
-def main_page():
+def app():
     st.markdown("<h1 style='text-align: center; color: #0000FF;'>Chancee's Proposal AI Assistant Beta V.1.0.2</h1>", unsafe_allow_html=True)
 
     st.markdown('''
