@@ -32,6 +32,23 @@ def check_password():
 
 def app():
     st.title("Axim's SEO Chatbot Beta V.1.0.0")
+    st.markdown(
+    """
+    This SEO Chatbot is designed specifically to assist with search engine optimization tasks. Powered by GPT-3, it helps in:
+    * Creating engaging captions for LinkedIn
+    * Suggesting SEO keywords for blog posts
+    * Generating catchy Tweets for articles
+    * Crafting compelling titles for blog posts
+    * Writing concise product descriptions
+    * Composing promotional email subjects
+    * Writing effective meta descriptions for web pages
+    * Suggesting appropriate hashtags for social media posts
+    * Composing engaging Facebook posts for events
+    * Creating persuasive calls-to-action for newsletters
+    * And a 'Custom prompt' option, where you can ask the AI to generate text based on your specific requirement, outside of the predefined tasks.
+    """
+)
+
 
     openai.api_key = st.secrets["OPENAI_API_KEY"]
     model_engine = "text-davinci-003"

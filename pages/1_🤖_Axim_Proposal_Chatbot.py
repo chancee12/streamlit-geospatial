@@ -52,7 +52,7 @@ if check_password():
         """
     )
 
-    st.title("Chancee's Proposal AI Assistant Beta V.1.0.3")
+    st.title("Axim's Proposal Chatbot Beta V.1.0.3")
     st.markdown(
         """
         This AI assistant is designed specifically to revise government contracting proposals. Utilizing GPT-3, it assists in:
@@ -98,7 +98,7 @@ if check_password():
         return revised_text, revision_length, revision_explanation
 
     def main_page():
-        prompt_input = st.text_input("Enter the prompt for the AI:")
+        prompt_input = st.text_input("Type your own unique prompt here if it's not covered by the pre-defined tasks:")
         user_input = st.text_area("Paste the text you'd like Chancee's AI Bot to revise:", height=200)
         submit_button = st.button("Submit")
 
