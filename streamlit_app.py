@@ -54,7 +54,7 @@ if check_password():
         "[buymeacoffee.com/chanceevins](https://www.buymeacoffee.com/chanceevins)",
         unsafe_allow_html=True
     )
-    st.title("AI and GIS Integrated Applications")
+    st.title("Chancee's AI and GIS Integrated Applications")
 
     st.markdown(
         """
@@ -89,26 +89,22 @@ if check_password():
         """
     )
 
-row1_col1, row1_col2 = st.columns(2)
+row1_col1, row1_col2, row1_col3, row1_col4 = st.columns(4)
 with row1_col1:
     st.markdown('![](https://media.giphy.com/media/AIl5hsiqF7Tb1uaMpE/giphy.gif)')
 with row1_col2:
     st.markdown('![](https://media.giphy.com/media/aBBVebadA4Z4c4wDc8/giphy.gif)')
-
-row2_col1, row2_col2 = st.columns(2)
-with row2_col1:
+with row1_col3:
     st.markdown('<div style="width:480px"><iframe allow="fullscreen" frameBorder="0" height="360" src="https://giphy.com/embed/AtemeKRsPRVESJ8zRq/video" width="480"></iframe></div>', unsafe_allow_html=True)
-with row2_col2:
+with row1_col4:
     st.markdown('<iframe src="https://giphy.com/embed/0lGd2OXXHe4tFhb7Wh" width="480" height="480" frameBorder="0" allowFullScreen></iframe>', unsafe_allow_html=True)
 
-row3_col1, row3_col2 = st.columns(2)
-with row3_col1:
+row2_col1, row2_col2, row2_col3, row2_col4 = st.columns(4)
+with row2_col1:
     st.markdown('![](https://media.giphy.com/media/iiSb58oATiANL65Dd2/giphy.gif)')
-with row3_col2:
+with row2_col2:
     st.markdown('![](https://media.giphy.com/media/l4pTsNgkamxfk2ZLq/giphy.gif)')
-
-row4_col1, row4_col2 = st.columns(2)
-with row4_col1:
+with row2_col3:
     st.markdown('![](https://media.giphy.com/media/ckJF143W1gBS8Hk833/giphy.gif)')
-with row4_col2:
+with row2_col4:
     st.markdown('![](https://media.giphy.com/media/BT6RWMRXKSxLYS8B7G/giphy.gif)')
