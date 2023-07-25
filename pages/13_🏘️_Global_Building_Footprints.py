@@ -5,11 +5,11 @@ import streamlit as st
 
 st.set_page_config(layout="wide")
 
-
 @st.cache(persist=True)
 def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
     geemap.ee_initialize(token_name=token_name)
 
+ee_authenticate()  # Remember to replace with actual Earth Engine token if necessary
 
 st.sidebar.info(
     """
@@ -30,11 +30,9 @@ st.title("Global Building Footprints")
 
 col1, col2 = st.columns([8, 2])
 
-
 @st.cache_data
 def read_data(url):
     return gpd.read_file(url)
-
 
 countries = 'https://github.com/giswqs/geemap/raw/master/examples/data/countries.geojson'
 states = 'https://github.com/giswqs/geemap/raw/master/examples/data/us_states.json'
@@ -46,8 +44,6 @@ country_names = countries_gdf['NAME'].values.tolist()
 country_names.remove('United States of America')
 country_names.append('USA')
 country_names.sort()
-country_names = [name.replace('.', '').replace(' ', '_')
-                 for name in country_names]
 
 state_names = states_gdf['name'].values.tolist()
 
