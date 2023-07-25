@@ -2,7 +2,10 @@ import streamlit as st
 import openai
 import time
 
+# Set up OpenAI API key
 openai.api_key = st.secrets["OPENAI_API_KEY"]
+
+# GPT-3 model to use for text revision
 model_engine = "text-davinci-003"
 
 st.set_page_config(
