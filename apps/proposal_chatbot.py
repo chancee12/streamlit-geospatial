@@ -8,12 +8,7 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 # GPT-3 model to use for text revision
 model_engine = "text-davinci-003"
 
-st.set_page_config(
-    page_title="Chancee's Proposal AI Assistant Beta V.1.0.2",
-    page_icon=":robot:",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+st.title("Chancee's Proposal AI Assistant Beta V.1.0.3")
 
 st.sidebar.info(
     """
@@ -32,7 +27,6 @@ st.sidebar.info(
     [Axim Geospatial](https://www.aximgeo.com/) 
     """
 )
-st.markdown("<h1 style='text-align: center; color: #0000FF;'>Chancee's Proposal AI Assistant Beta V.1</h1>", unsafe_allow_html=True)
 
 def revise_text(prompt, text_to_revise):
     revised_text_response = openai.Completion.create(
