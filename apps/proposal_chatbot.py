@@ -15,6 +15,23 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+st.sidebar.info(
+    """
+    - Hugging Face: <https://huggingface.co/Chancee12>
+    - GitHub repository: <https://github.com/chancee12/>
+    """
+)
+
+st.sidebar.title("Contact")
+st.sidebar.info(
+    """
+    Chancee Vincent, Axim Geospatial Solutions Architect:
+    [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6) | [GitHub](https://github.com/chancee12/)
+    
+    Axim Homepage:
+    [Axim Geospatial](https://www.aximgeo.com/) 
+    """
+)
 st.markdown("<h1 style='text-align: center; color: #0000FF;'>Chancee's Proposal AI Assistant Beta V.1</h1>", unsafe_allow_html=True)
 
 def revise_text(prompt, text_to_revise):
@@ -42,11 +59,6 @@ def revise_text(prompt, text_to_revise):
 
     revision_explanation = revision_explanation_response['choices'][0]['text'].strip()
     return revised_text, revision_length, revision_explanation
-
-def main_page():
-    prompt_input = st.text_input("Enter the prompt for the AI:")
-    user_input = st.text_area("Paste the text you'd like Chancee's AI Bot to revise:", height=200)
-    submit_button = st.button("Submit")
 
 def main_page():
     prompt_input = st.text_input("Enter the prompt for the AI:")

@@ -3,19 +3,11 @@ import leafmap.foliumap as leafmap
 
 st.set_page_config(layout="wide")
 
-st.sidebar.title("About Chancee's Open Source Mapping Tools")
-st.sidebar.info(
-    """
-    Explore Chancee's Open Source Mapping Tools in this web application. For more information, visit:
-    - GitHub repository: <https://github.com/chancee/opensource-mapping-tools>
-    """
-)
-
 st.sidebar.title("Contact Chancee")
 st.sidebar.info(
     """
     Get in touch with Chancee through the following platforms:
-    - [GitHub](https://github.com/chancee) | [Twitter](https://twitter.com/chancee) | [LinkedIn](https://www.linkedin.com/in/chancee)
+    - [GitHub](https://github.com/chancee) | [LinkedIn](https://www.linkedin.com/in/chancee)
     """
 )
 
