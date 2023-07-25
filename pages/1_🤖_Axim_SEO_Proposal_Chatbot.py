@@ -30,12 +30,11 @@ def check_password():
         return True
 
 if check_password():
-
-        st.sidebar.info(
-        """
-        - Hugging Face: <https://huggingface.co/Chancee12>
-        - GitHub repository: <https://github.com/chancee12/>
-        """
+    st.sidebar.info(
+    """
+    - Hugging Face: <https://huggingface.co/Chancee12>
+    - GitHub repository: <https://github.com/chancee12/>
+    """
     )
 
     st.sidebar.title("Contact")
@@ -48,7 +47,6 @@ if check_password():
         [Axim Geospatial](https://www.aximgeo.com/) 
         """
     )
-
 
     def app():
 
