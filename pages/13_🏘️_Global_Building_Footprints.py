@@ -2,34 +2,27 @@ import ee
 import geemap.foliumap as geemap
 import geopandas as gpd
 import streamlit as st
-import json
-from google.oauth2.credentials import Credentials
 
 st.set_page_config(layout="wide")
 
-def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
-    token = json.loads(st.secrets[token_name])
-    creds = Credentials.from_authorized_user_info(info=token)
-    ee.Initialize(creds)
 
-# Call the function to authenticate Earth Engine
-ee_authenticate()
+@st.cache(persist=True)
+def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
+    geemap.ee_initialize(token_name=token_name)
+
 
 st.sidebar.info(
     """
-    - Hugging Face: <https://huggingface.co/Chancee12>
-    - GitHub repository: <https://github.com/chancee12/>
+    - Web App URL: <https://streamlit.geemap.org>
+    - GitHub repository: <https://github.com/giswqs/streamlit-geospatial>
     """
 )
 
 st.sidebar.title("Contact")
 st.sidebar.info(
     """
-    Chancee Vincent, Axim Geospatial Solutions Architect:
-    [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6) | [GitHub](https://github.com/chancee12/)
-    
-    Axim Homepage:
-    [Axim Geospatial](https://www.aximgeo.com/) 
+    Qiusheng Wu: <https://wetlands.io>
+    [GitHub](https://github.com/giswqs) | [Twitter](https://twitter.com/giswqs) | [YouTube](https://www.youtube.com/c/QiushengWu) | [LinkedIn](https://www.linkedin.com/in/qiushengwu)
     """
 )
 
@@ -70,24 +63,26 @@ with col2:
 
     country = st.selectbox('Select a country', country_names,
                            index=country_names.index('USA'))
-    fc = None
-    
+
     if country == 'USA':
         state = st.selectbox('Select a state', state_names,
-                            index=state_names.index('Florida'))
+                             index=state_names.index('Florida'))
         layer_name = state
-        fc = ee.FeatureCollection(
-            f'projects/sat-io/open-datasets/MSBuildings/US/{state}')
+
+        try:
+            fc = ee.FeatureCollection(
+                f'projects/sat-io/open-datasets/MSBuildings/US/{state}')
+        except:
+            st.error('No data available for the selected state.')
 
     else:
-        fc = ee.FeatureCollection(
-            f'projects/sat-io/open-datasets/MSBuildings/{country}')
+        try:
+            fc = ee.FeatureCollection(
+                f'projects/sat-io/open-datasets/MSBuildings/{country}')
+        except:
+            st.error('No data available for the selected country.')
+
         layer_name = country
-
-    # Check if the FeatureCollection is empty
-    if fc.size().getInfo() == 0:
-        st.error('No data available for the selected country or state.')
-
 
     color = st.color_picker('Select a color', '#FF5500')
 
@@ -95,15 +90,14 @@ with col2:
 
     split = st.checkbox("Split-panel map")
 
-    if fc is not None:  # Check if fc is not None before adding the layer
-        if split:
-            left = geemap.ee_tile_layer(fc.style(**style), {}, 'Left')
-            right = left
-            Map.split_map(left, right)
-        else:
-            Map.addLayer(fc.style(**style), {}, layer_name)
+    if split:
+        left = geemap.ee_tile_layer(fc.style(**style), {}, 'Left')
+        right = left
+        Map.split_map(left, right)
+    else:
+        Map.addLayer(fc.style(**style), {}, layer_name)
 
-        Map.centerObject(fc.first(), zoom=16)
+    Map.centerObject(fc.first(), zoom=16)
 
     with st.expander("Data Sources"):
         st.info(

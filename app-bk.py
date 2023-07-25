@@ -26,7 +26,6 @@ st.set_page_config(layout="wide")
 apps = MultiApp()
 
 # Add all your application here
-
 apps.add_app("Home", home.app)
 apps.add_app("Create Timelapse", timelapse.app)
 # apps.add_app("Hurricane Mapping", hurricane.app)
