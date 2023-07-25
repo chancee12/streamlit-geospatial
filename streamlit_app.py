@@ -61,7 +61,7 @@ if check_password():
         Welcome to this unique platform combining the power of AI and Geospatial technologies. We feature interactive web apps that leverage 
         [openai](https://openai.com)'s GPT-3 model, [streamlit](https://streamlit.io) for web deployment, and an array of open-source mapping libraries like 
         [leafmap](https://leafmap.org), [geemap](https://geemap.org), [pydeck](https://deckgl.readthedocs.io), and [kepler.gl](https://docs.kepler.gl/docs/keplergl-jupyter).
-        The AI models were trained and deployed by Chancee Vincent, an expert in AI and GIS.
+        For questions ask Chancee.
         """
     )
 
@@ -75,7 +75,7 @@ if check_password():
 
     st.markdown(
         """
-        This is an open-source project. You are welcome to contribute your comments, questions, resources, and apps as 
+        This is aimed to be an Axim open-source project. You are welcome to contribute your comments, questions, resources, and apps as 
         [pull requests](https://github.com/chancee12/streamlit-geospatial/pulls) to the [GitHub repository](https://github.com/chancee12/streamlit-geospatial).
         """
     )
@@ -89,12 +89,26 @@ if check_password():
         """
     )
 
-    row1_col1, row1_col2 = st.columns(2)
-    with row1_col1:
-        st.markdown('![](https://media.giphy.com/media/AIl5hsiqF7Tb1uaMpE/giphy.gif)')
-        st.markdown('![](https://media.giphy.com/media/aBBVebadA4Z4c4wDc8/giphy.gif)')
+row1_col1, row1_col2 = st.columns(2)
+with row1_col1:
+    st.markdown('![](https://media.giphy.com/media/AIl5hsiqF7Tb1uaMpE/giphy.gif)')
+with row1_col2:
+    st.markdown('![](https://media.giphy.com/media/aBBVebadA4Z4c4wDc8/giphy.gif)')
 
-    with row1_col2:
-        st.markdown('<div style="width:480px"><iframe allow="fullscreen" frameBorder="0" height="360" src="https://giphy.com/embed/AtemeKRsPRVESJ8zRq/video" width="480"></iframe></div>', unsafe_allow_html=True)
-        st.markdown('<iframe src="https://giphy.com/embed/0lGd2OXXHe4tFhb7Wh" width="480" height="480" frameBorder="0" allowFullScreen></iframe>', unsafe_allow_html=True)
+row2_col1, row2_col2 = st.columns(2)
+with row2_col1:
+    st.markdown('<div style="width:480px"><iframe allow="fullscreen" frameBorder="0" height="360" src="https://giphy.com/embed/AtemeKRsPRVESJ8zRq/video" width="480"></iframe></div>', unsafe_allow_html=True)
+with row2_col2:
+    st.markdown('<iframe src="https://giphy.com/embed/0lGd2OXXHe4tFhb7Wh" width="480" height="480" frameBorder="0" allowFullScreen></iframe>', unsafe_allow_html=True)
 
+row3_col1, row3_col2 = st.columns(2)
+with row3_col1:
+    st.markdown('![](https://media.giphy.com/media/iiSb58oATiANL65Dd2/giphy.gif)')
+with row3_col2:
+    st.markdown('![](https://media.giphy.com/media/l4pTsNgkamxfk2ZLq/giphy.gif)')
+
+row4_col1, row4_col2 = st.columns(2)
+with row4_col1:
+    st.markdown('![](https://media.giphy.com/media/ckJF143W1gBS8Hk833/giphy.gif)')
+with row4_col2:
+    st.markdown('![](https://media.giphy.com/media/BT6RWMRXKSxLYS8B7G/giphy.gif)')
