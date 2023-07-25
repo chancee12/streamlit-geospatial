@@ -117,7 +117,7 @@ with row2_col1:
 with row2_col2:
     st.markdown('![](https://media.giphy.com/media/l4pTsNgkamxfk2ZLq/giphy.gif)')
 with row2_col3:
-    st.markdown('https://media.giphy.com/media/QL8RF2CdcuK1YzkWqm/giphy.gif')
+    st.markdown('![](https://media.giphy.com/media/QL8RF2CdcuK1YzkWqm/giphy.gif')
 with row2_col4:
     st.markdown('![](https://media.giphy.com/media/BT6RWMRXKSxLYS8B7G/giphy.gif)')
 
