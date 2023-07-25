@@ -64,6 +64,9 @@ with col2:
     country = st.selectbox('Select a country', country_names,
                            index=country_names.index('USA'))
 
+    # Initialize fc as None
+    fc = None
+
     if country == 'USA':
         state = st.selectbox('Select a state', state_names,
                              index=state_names.index('Florida'))
@@ -91,13 +94,19 @@ with col2:
     split = st.checkbox("Split-panel map")
 
     if split:
-        left = geemap.ee_tile_layer(fc.style(**style), {}, 'Left')
-        right = left
-        Map.split_map(left, right)
+        # Ensure fc is not None before using it
+        if fc is not None:
+            left = geemap.ee_tile_layer(fc.style(**style), {}, 'Left')
+            right = left
+            Map.split_map(left, right)
     else:
-        Map.addLayer(fc.style(**style), {}, layer_name)
+        # Ensure fc is not None before using it
+        if fc is not None:
+            Map.addLayer(fc.style(**style), {}, layer_name)
 
-    Map.centerObject(fc.first(), zoom=16)
+    # Again, ensure fc is not None before using it
+    if fc is not None:
+        Map.centerObject(fc.first(), zoom=16)
 
     with st.expander("Data Sources"):
         st.info(
