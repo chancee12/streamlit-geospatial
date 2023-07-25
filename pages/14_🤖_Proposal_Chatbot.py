@@ -51,3 +51,7 @@ st.markdown('''
     * Also if you have a specific revision you can put it in parenthesis. For example, you could put (Make this section more relatable to the client with unique examples) next to your paragraph. 
     * Lastly, site uses Chancee's Openai account and tokens, so be mindful of submissions while testing but have fun!
 ''', unsafe_allow_html=True)
+
+prompt_input = st.text_input("Enter the prompt for the AI:")
+user_input = st.text_area("Paste the text you'd like Chancee's AI Bot to revise:", height=200)
+submit_button = st.button("Submit")
