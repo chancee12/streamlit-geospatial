@@ -1,5 +1,6 @@
 import streamlit as st
 from pages import SEOChatbot
+import openai
 
 # Set up OpenAI API key
 openai.api_key = st.secrets["OPENAI_API_KEY"]
