@@ -1,5 +1,4 @@
 import streamlit as st
-from page import main_page
 
 def app():
     st.set_page_config(
@@ -7,9 +6,6 @@ def app():
         page_icon=":robot:",
         layout="wide",
         initial_sidebar_state="expanded",
-        menu_items={
-            'About': "Chancee's AI Assistant is designed specifically to revise government contracting proposals the best way possible. Utilizing OpenAI API, it assists in restructuring sentences, clarifying ambiguities, eliminating redundancies, and enhancing the overall presentation."
-        }
     )
 
     st.sidebar.info(
@@ -21,6 +17,8 @@ def app():
         [Axim Geospatial](https://www.aximgeo.com/)  
         """
     )
+
+    from .app import main_page
 
     main_page()
 
