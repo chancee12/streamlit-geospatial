@@ -21,6 +21,3 @@ def app():
     from .app import main_page
 
     main_page()
-
-if __name__ == "__main__":
-    app()
