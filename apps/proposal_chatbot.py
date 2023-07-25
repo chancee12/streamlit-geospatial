@@ -8,7 +8,6 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 # GPT-3 model to use for text revision
 model_engine = "text-davinci-003"
 
-
 def revise_text(prompt, text_to_revise):
     revised_text_response = openai.Completion.create(
         engine=model_engine,
@@ -37,7 +36,6 @@ def revise_text(prompt, text_to_revise):
     revision_explanation = revision_explanation_response['choices'][0]['text'].strip()
 
     return revised_text, revision_length, revision_explanation
-
 
 # Set page configuration
 st.set_page_config(
