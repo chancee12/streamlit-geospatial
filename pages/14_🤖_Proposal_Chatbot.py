@@ -1,3 +1,5 @@
+import streamlis as st
+
 # Set page configuration
 st.set_page_config(
     page_title="Chancee's Proposal AI Assistant Beta V.1.0.2",
