@@ -113,7 +113,7 @@ with row1_col4:
 
 row2_col1, row2_col2, row2_col3, row2_col4 = st.columns(4)
 with row2_col1:
-    st.markdown('![](https://media.giphy.com/media/iiSb58oATiANL65Dd2/giphy.gif)')
+    st.markdown('![](https://media.giphy.com/media/tkQbZfMb4686Kht2Ds/giphy.gif)')
 with row2_col2:
     st.markdown('![](https://media.giphy.com/media/l4pTsNgkamxfk2ZLq/giphy.gif)')
 with row2_col3:
