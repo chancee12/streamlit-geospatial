@@ -1,6 +1,25 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
 
+def check_password():
+    if "password" not in st.session_state:
+        st.session_state["password"] = ""
+
+    password = st.text_input("Enter your password", type="password")
+
+    if password:
+        st.session_state["password"] = password
+
+    if st.session_state["password"] == st.secrets["password"]:
+        return True
+    elif st.session_state["password"]:
+        st.error("The password you entered is incorrect. Please try again.")
+
+    return False
+
+if not check_password():
+    st.stop()
+    
 st.set_page_config(layout="wide")
 
 st.sidebar.info(

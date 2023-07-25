@@ -58,7 +58,7 @@ if check_password():
 
     st.markdown(
         """
-        This multi-page web app demonstrates various interactive web apps created using [streamlit](https://streamlit.io) and open-source mapping libraries, 
+        This multi-page web app demonstrates various interactive web apps created using [openai](https://openai.com), [streamlit](https://streamlit.io) and open-source mapping libraries, 
         such as [leafmap](https://leafmap.org), [geemap](https://geemap.org), [pydeck](https://deckgl.readthedocs.io), and [kepler.gl](https://docs.kepler.gl/docs/keplergl-jupyter).
         This is an open-source project and you are very welcome to contribute your comments, questions, resources, and apps as 
         [pull requests](https://github.com/chancee12/streamlit-geospatial/pullss) to the [GitHub repository](https://github.com/chancee12/streamlit-geospatial).
@@ -71,7 +71,7 @@ if check_password():
     st.subheader("Timelapse of Satellite Imagery")
     st.markdown(
         """
-        The following timelapse animations were created using the Timelapse web app. Click `Timelapse` on the left sidebar menu to create your own timelapse for any location around the globe.
+        The following timelapse animations were created using the Timelapse web app. 
     """
     )
 
