@@ -8,6 +8,29 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 # GPT-3 model to use for text revision
 model_engine = "text-davinci-003"
 
+def main_page():
+    st.markdown("<h1 style='text-align: center; color: #0000FF;'>Chancee's Proposal AI Assistant Beta V.1.0.2</h1>", unsafe_allow_html=True)
+
+    st.markdown('''
+        ## **About**
+        This AI assistant is designed specifically to **revise government contracting proposals**.
+        Utilizing GPT-3, it assists in:
+        * Restructuring sentences for improved readability
+        * Clarifying ambiguities
+        * Eliminating unnecessary redundancies
+        * Enhancing the overall presentation
+    ''', unsafe_allow_html=True)
+
+    st.markdown('''
+        ## **Prompt Guidance**
+        The prompt box allows you to specify how you want the AI to approach revising your text. If you leave it blank, the default prompt, which instructs the AI to revise for clarity, structure, alignment with proposal requirements, professional appeal, and so on, will be used. If you enter your own prompt, it will replace the default and guide the AI's revision process. Remember, the AI is quite flexible, so feel free to get creative with your prompts!
+
+        **Note:**
+        * Works best on around 1-6 length paragraph chunks at a time. 
+        * Also if you have a specific revision you can put it in parenthesis. For example, you could put (Make this section more relatable to the client with unique examples) next to your paragraph. 
+        * Lastly, site uses Chancee's Openai account and tokens, so be mindful of submissions while testing but have fun!
+    ''', unsafe_allow_html=True)
+
 def revise_text(prompt, text_to_revise):
     revised_text_response = openai.Completion.create(
         engine=model_engine,
