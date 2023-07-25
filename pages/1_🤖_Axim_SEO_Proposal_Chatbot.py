@@ -88,3 +88,5 @@ if check_password():
 
             st.markdown("### **Output:**")
             st.text_area("", value=output, height=200)
+    if __name__ == "__main__":
+        main_page()
