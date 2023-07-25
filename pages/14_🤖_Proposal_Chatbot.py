@@ -52,24 +52,6 @@ st.markdown('''
     * Lastly, site uses Chancee's Openai account and tokens, so be mindful of submissions while testing but have fun!
 ''', unsafe_allow_html=True)
 
-st.sidebar.info(
-    """
-    - Hugging Face: <https://huggingface.co/Chancee12>
-    - GitHub repository: <https://github.com/chancee12/>
-    """
-)
-
-st.sidebar.title("Contact")
-st.sidebar.info(
-    """
-    Chancee Vincent, Axim Geospatial Solutions Architect:
-    [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6) | [GitHub](https://github.com/chancee12/)
-    
-    Axim Homepage:
-    [Axim Geospatial](https://www.aximgeo.com/)
-    """
-)
-
 prompt_input = st.text_input("Enter the prompt for the AI:")
 user_input = st.text_area("Paste the text you'd like Chancee's AI Bot to revise:", height=200)
 submit_button = st.button("Submit")
