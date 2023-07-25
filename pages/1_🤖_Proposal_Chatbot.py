@@ -3,15 +3,7 @@ import openai
 import time
 
 # Set page configuration
-st.set_page_config(
-    page_title="Chancee's Proposal AI Assistant Beta V.1.0.2",
-    page_icon=":robot:",
-    layout="wide",
-    initial_sidebar_state="expanded",
-    menu_items={
-        'About': "Chancee's AI Assistant is designed specifically to revise government contracting proposals the best way possible. Utilizing OpenAI API, it assists in restructuring sentences, clarifying ambiguities, eliminating redundancies, and enhancing the overall presentation."
-    }
-)
+
 st.sidebar.info(
     """
     - Hugging Face: <https://huggingface.co/Chancee12>
@@ -37,7 +29,7 @@ st.markdown("""
             background-color: #f5f5f5;
         }
         h1, h2, h3 {
-            color: #008080;
+            color: #262626;
             font-family: 'Courier New', Courier, monospace;
         }
         div {
@@ -46,7 +38,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown("<h1 style='text-align: center; color: #008080;'>Chancee's Proposal AI Assistant Beta V.1</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: left; color: #262626;'>Chancee's Proposal AI Assistant Beta V.1.0.3</h1>", unsafe_allow_html=True)
 
 st.markdown('''
     ## **About**
