@@ -1,4 +1,6 @@
 import streamlit as st
+import openai
+import time
 
 # Set page configuration
 st.set_page_config(
