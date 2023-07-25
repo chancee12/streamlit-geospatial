@@ -107,7 +107,7 @@ with row1_col1:
 with row1_col2:
     st.markdown('![](https://media.giphy.com/media/aBBVebadA4Z4c4wDc8/giphy.gif)')
 with row1_col3:
-    st.markdown('<div style="width:480px"><iframe allow="fullscreen" frameBorder="0" height="360" src="https://giphy.com/embed/AtemeKRsPRVESJ8zRq/video" width="480"></iframe></div>', unsafe_allow_html=True)
+    st.markdown('![](https://media.giphy.com/media/ckJF143W1gBS8Hk833/giphy.gif')
 with row1_col4:
     st.markdown('<iframe src="https://giphy.com/embed/0lGd2OXXHe4tFhb7Wh" width="480" height="480" frameBorder="0" allowFullScreen></iframe>', unsafe_allow_html=True)
 
@@ -117,6 +117,7 @@ with row2_col1:
 with row2_col2:
     st.markdown('![](https://media.giphy.com/media/l4pTsNgkamxfk2ZLq/giphy.gif)')
 with row2_col3:
-    st.markdown('![](https://media.giphy.com/media/ckJF143W1gBS8Hk833/giphy.gif)')
+    st.markdown('<div style="width:480px"><iframe allow="fullscreen" frameBorder="0" height="360" src="https://giphy.com/embed/AtemeKRsPRVESJ8zRq/video" width="480"></iframe></div>', unsafe_allow_html=True)
 with row2_col4:
     st.markdown('![](https://media.giphy.com/media/BT6RWMRXKSxLYS8B7G/giphy.gif)')
+        
