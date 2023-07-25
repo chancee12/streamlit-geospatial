@@ -18,9 +18,10 @@ st.sidebar.info(
     [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6) | [GitHub](https://github.com/chancee12/)
     
     Axim Homepage:
-    [Axim Geospatial](https://www.aximgeo.com/) 
+    [Axim Geospatial](https://www.aximgeo.com/)   
     """
 )
+
 # Enhanced CSS for an improved and cool aesthetic
 st.markdown("""
     <style>
