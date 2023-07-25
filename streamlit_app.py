@@ -3,33 +3,29 @@ import leafmap.foliumap as leafmap
 
 st.set_page_config(layout="wide")
 
+st.sidebar.title("About Chancee's Open Source Mapping Tools")
 st.sidebar.info(
     """
-    - Web App URL: <https://streamlit.geemap.org>
-    - GitHub repository: <https://github.com/giswqs/streamlit-geospatial>
+    Explore Chancee's Open Source Mapping Tools in this web application. For more information, visit:
+    - GitHub repository: <https://github.com/chancee/opensource-mapping-tools>
     """
 )
 
-st.sidebar.title("Contact")
+st.sidebar.title("Contact Chancee")
 st.sidebar.info(
     """
-    Qiusheng Wu: <https://wetlands.io>
-    [GitHub](https://github.com/giswqs) | [Twitter](https://twitter.com/giswqs) | [YouTube](https://www.youtube.com/c/QiushengWu) | [LinkedIn](https://www.linkedin.com/in/qiushengwu)
+    Get in touch with Chancee through the following platforms:
+    - [GitHub](https://github.com/chancee) | [Twitter](https://twitter.com/chancee) | [LinkedIn](https://www.linkedin.com/in/chancee)
     """
 )
 
-# Customize page title
-st.title("Streamlit for Geospatial Applications")
+st.title("Open Source Mapping Tools by Chancee")
 
 st.markdown(
     """
-    This multipage app template demonstrates various interactive web apps created using [streamlit](https://streamlit.io) and [leafmap](https://leafmap.org). 
+    Dive into a variety of interactive web apps developed by Chancee using open source mapping tools, featuring [streamlit](https://streamlit.io) and [leafmap](https://leafmap.org). 
     """
 )
-
-
-
-st.markdown(markdown)
 
 m = leafmap.Map(minimap_control=True)
 m.add_basemap("OpenTopoMap")
