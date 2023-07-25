@@ -1,17 +1,28 @@
 import streamlit as st
 from pages import SEOChatbot
 
-# Define all your pages in this dictionary
-# The names on the left are the names that will appear in the dropdown menu
-PAGES = {
-    "SEO Chatbot": SEOChatbot,
-}
-
 def main():
-    st.sidebar.title("Page selection")
-    # Render the page selection as a radio button
-    page = st.sidebar.selectbox("Go to", list(PAGES.keys()))
-    PAGES[page].app()
+    st.set_page_config(layout="wide")
+
+    st.sidebar.info(
+    """
+    - Hugging Face: <https://huggingface.co/Chancee12>
+    - GitHub repository: <https://github.com/chancee12/>
+    """
+    )
+
+    st.sidebar.title("Contact")
+    st.sidebar.info(
+        """
+        Chancee Vincent, Axim Geospatial Solutions Architect:
+        [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6) | [GitHub](https://github.com/chancee12/)
+        
+        Axim Homepage:
+        [Axim Geospatial](https://www.aximgeo.com/) 
+        """
+    )
+
+    SEOChatbot.app()
 
 if __name__ == "__main__":
     main()
