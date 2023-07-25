@@ -5,7 +5,7 @@ import streamlit as st
 
 st.set_page_config(layout="wide")
 
-@st.cache(persist=True)
+@st.cache_data(persist=True)
 def ee_authenticate(token_name="EARTHENGINE_TOKEN"):
     geemap.ee_initialize(token_name=token_name)
 
