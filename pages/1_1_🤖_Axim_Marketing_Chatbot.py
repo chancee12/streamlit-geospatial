@@ -4,6 +4,7 @@ import time
 
 def check_password():
     """Returns `True` if the user had the correct password."""
+
     def password_entered():
         """Checks whether a password entered by the user is correct."""
         if st.session_state["password"] == st.secrets["password"]:
@@ -13,13 +14,20 @@ def check_password():
             st.session_state["password_correct"] = False
 
     if "password_correct" not in st.session_state:
-        st.text_input("Password", type="password", on_change=password_entered, key="password")
+        # First run, show input for password.
+        st.text_input(
+            "Password", type="password", on_change=password_entered, key="password"
+        )
         return False
     elif not st.session_state["password_correct"]:
-        st.text_input("Password", type="password", on_change=password_entered, key="password")
+        # Password not correct, show input + error.
+        st.text_input(
+            "Password", type="password", on_change=password_entered, key="password"
+        )
         st.error("😕 Password incorrect")
         return False
     else:
+        # Password correct.
         return True
 
 def app():
@@ -46,19 +54,41 @@ def app():
             "Write a meta description for a web page",
             "Suggest hashtags for a social media post",
             "Compose a Facebook post for this event",
-            "Create a call-to-action for a newsletter"]
+            "Create a call-to-action for a newsletter",
+            "Custom prompt"]
 
     task = st.selectbox("Select Task:", tasks)
     user_input = st.text_area("Enter the text or context you'd like the Chatbot to work on:", height=200)
     submit_button = st.button("Submit")
 
     if submit_button and user_input:
-        with st.spinner("Generating text..."):
-            output = run_model(f"{task}\n\n{user_input}")
+        with st.spinner("Loading..."):
+            if task == "Custom prompt":
+                output = run_model(user_input)
+            else:
+                output = run_model(f"{task}\n\n{user_input}")
             time.sleep(1)
 
         st.markdown("### **Output:**")
         st.text_area("", value=output, height=200)
 
 if check_password():
+    st.sidebar.info(
+    """
+    - Hugging Face: <https://huggingface.co/Chancee12>
+    - GitHub repository: <https://github.com/chancee12/>
+    """
+    )
+
+    st.sidebar.title("Contact")
+    st.sidebar.info(
+        """
+        Chancee Vincent, Axim Geospatial Solutions Architect:
+        [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6) | [GitHub](https://github.com/chancee12/)
+        
+        Axim Homepage:
+        [Axim Geospatial](https://www.aximgeo.com/) 
+        """
+    )
+
     app()
