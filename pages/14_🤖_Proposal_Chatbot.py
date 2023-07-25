@@ -1,3 +1,8 @@
+import streamlit as st
+import openai
+import time
+
+
 # Set page configuration
 st.set_page_config(
     page_title="Chancee's Proposal AI Assistant Beta V.1.0.2",
