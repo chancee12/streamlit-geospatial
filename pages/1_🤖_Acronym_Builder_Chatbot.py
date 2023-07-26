@@ -37,7 +37,7 @@ def check_password():
 
 def find_in_text(acronym, text):
     """Finds the definition of an acronym in the given text."""
-    pattern = r'\b' + re.escape(acronym) + r'\b\s*-\s*(.*?)\s*(?=\(|$|\n)'
+    pattern = rf'\b([A-Za-z]+\d*)\b[^.]+?\(([^)]+)\)'
     match = re.search(pattern, text)
     return match.group(1).strip() if match else None
 
