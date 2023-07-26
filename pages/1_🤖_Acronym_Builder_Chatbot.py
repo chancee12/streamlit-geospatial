@@ -3,6 +3,10 @@ import requests
 import re
 import openai
 
+#logging
+logging.basicConfig(filename='app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
+
+
 def check_password():
     """Returns `True` if the user had the correct password."""
 
@@ -36,21 +40,8 @@ if check_password():
     openai.api_key = st.secrets["OPENAI_API_KEY"]
     model_engine = "text-davinci-003"
 
-    def find_in_text(acronym, text):
-        """Find the definition of the acronym directly in the text."""
-        pattern = re.compile(r"\b" + re.escape(acronym) + r"(?:\s*[-(]\s*|\s+)([A-Z][A-Za-z0-9\s,]*[A-Za-z0-9])")
-        matches = pattern.findall(text)
-        if matches:
-            # Strip leading/trailing white space and return the definition
-            return matches[0].strip()
-        return None
-
-
-
     def get_acronym_definition(acronym, text):
         """Retrieves the definition of an acronym from OpenAI text API or Wikipedia."""
-
-        # Check if the definition is in the text
         definition_in_text = find_in_text(acronym, text)
         if definition_in_text:
             print(f"Found definition in text: {definition_in_text}")
@@ -58,55 +49,55 @@ if check_password():
 
         fields = ["military", "GIS", "intelligence", "proposal", "AI"]
 
+        definition = None
         for field in fields:
-            # Try to get the definition using the OpenAI text API
             try:
                 response = openai.Completion.create(
                     engine=model_engine,
-                    prompt=f"In the field of machine learning and natural language processing, what does the acronym '{acronym}' stand for?",
+                    prompt=f"In the field of {field}, what does the acronym '{acronym}' stand for?",
                     max_tokens=60,
                     temperature=0.3,
                 )
                 result = response['choices'][0]['text'].strip()
-                if result and acronym in result:  # Check if definition contains the acronym
-                    # Updated to include more of the text if the first sentence is too short
+                if result and acronym in result:
                     split_result = result.split(".")
-                    if len(split_result[0].split(' ')) > 3:  # If the first sentence has more than 3 words
+                    if len(split_result[0].split(' ')) > 3:
                         print(f"Found definition in OpenAI API: {split_result[0]}")
-                        return split_result[0]
+                        definition = split_result[0]
+                        break
                     else:
                         print(f"Found definition in OpenAI API: {'. '.join(split_result[:2])}")
-                        return '. '.join(split_result[:2])  # Return first two sentences if the first sentence is too short
+                        definition = '. '.join(split_result[:2])
+                        break
 
             except Exception as e:
-                print("Error occurred while using OpenAI API:", e)
+                logging.error("Error occurred while using OpenAI API: ", exc_info=True)
 
-        # If the OpenAI API fails or returns an empty response, try using the Wikipedia API
-        try:
-            wiki_response = requests.get(
-                "https://en.wikipedia.org/w/api.php",
-                params={
-                    "action": "opensearch",
-                    "format": "json",
-                    "limit": 1,
-                    "namespace": 0,
-                    "search": acronym
-                }
-            ).json()
+        if definition is None:
+            try:
+                wiki_response = requests.get(
+                    "https://en.wikipedia.org/w/api.php",
+                    params={
+                        "action": "opensearch",
+                        "format": "json",
+                        "limit": 1,
+                        "namespace": 0,
+                        "search": acronym
+                    }
+                ).json()
 
-            if len(wiki_response[1]) > 0 and acronym in wiki_response[2][0]:  # Check if definition contains the acronym
-                # Similar update here to avoid cutting off valid definitions
-                split_result = wiki_response[2][0].split(".")
-                if len(split_result[0].split(' ')) > 3:  # If the first sentence has more than 3 words
-                    print(f"Found definition in Wikipedia: {split_result[0]}")
-                    return split_result[0]
-                else:
-                    print(f"Found definition in Wikipedia: {'. '.join(split_result[:2])}")
-                    return '. '.join(split_result[:2])  # Return first two sentences if the first sentence is too short
-        except Exception as e:
-            print("Error occurred while using Wikipedia API:", e)
+                if len(wiki_response[1]) > 0 and acronym in wiki_response[2][0]:
+                    split_result = wiki_response[2][0].split(".")
+                    if len(split_result[0].split(' ')) > 3:
+                        print(f"Found definition in Wikipedia: {split_result[0]}")
+                        definition = split_result[0]
+                    else:
+                        print(f"Found definition in Wikipedia: {'. '.join(split_result[:2])}")
+                        definition = '. '.join(split_result[:2])
+            except Exception as e:
+                logging.error("Error occurred while using Wikipedia API: ", exc_info=True)
 
-        return "Definition not available"
+        return definition or "Definition not available"
 
     def find_acronyms(text):
         """Finds all acronyms in the given text."""
