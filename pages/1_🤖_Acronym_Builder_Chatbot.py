@@ -99,7 +99,12 @@ def get_acronym_definition(acronym, text):
         except Exception as e:
             logging.error("Error occurred while using Wikipedia API: ", exc_info=True)
 
+    # Parse the definition to remove "ACRONYM stands for " part
+    if definition and acronym in definition:
+        definition = definition.replace(f"{acronym} stands for ", "")
+
     return definition or "Definition not available"
+
 
 
 def find_acronyms(text):
@@ -118,7 +123,7 @@ def find_acronym_definitions(user_input):
 def main():
     st.set_page_config(layout="wide")
 
-    st.title("Acronym Finder and Definition Assistant")
+    st.title("Chancee's Acronym Finder and Definition Assistant V.1.0.2")
     st.markdown(
         """
         This tool harnesses a multi-faceted approach to uncover acronyms within your text. First, it parses the text itself for immediate definitions. It then employs the power of OpenAI and Wikipedia, cross-referencing the definitions while prioritizing those most related to key fields such as GIS, Geospatial Analysis, Remote Sensing, AI, and others. This process increases highly relevant interpretations, enriching your understanding of the content at hand.
