@@ -38,9 +38,14 @@ if check_password():
 
     def find_in_text(acronym, text):
         """Find the definition of the acronym directly in the text."""
-        pattern = re.compile(r"\b(" + re.escape(acronym) + r")\s*[-\(\):]\s*([A-Za-z\s,]+)\b")
+        # The updated pattern now looks for definitions that include alphabetical, 
+        # numerical characters, as well as some punctuation like comma and dash.
+        pattern = re.compile(r"\b(" + re.escape(acronym) + r")\s*[-\(\):]\s*([\w\s,-]+)")
         matches = pattern.findall(text)
-        return matches[0][1] if matches else None
+        if matches:
+            # Strip leading/trailing white space and return the definition
+            return matches[0][1].strip()
+        return None
 
 
     def get_acronym_definition(acronym, text):
@@ -63,7 +68,12 @@ if check_password():
                 )
                 result = response['choices'][0]['text'].strip()
                 if result:
-                    return result.split(".")[0]  # return the first sentence or phrase of the definition
+                    # Updated to include more of the text if the first sentence is too short
+                    split_result = result.split(".")
+                    if len(split_result[0].split(' ')) > 3:  # If the first sentence has more than 3 words
+                        return split_result[0]
+                    else:
+                        return '. '.join(split_result[:2])  # Return first two sentences if the first sentence is too short
 
             except Exception as e:
                 print("Error occurred while using OpenAI API:", e)
@@ -81,9 +91,15 @@ if check_password():
         ).json()
 
         if len(wiki_response[1]) > 0:
-            return wiki_response[2][0].split(".")[0]  # return the first sentence or phrase of the definition
+            # Similar update here to avoid cutting off valid definitions
+            split_result = wiki_response[2][0].split(".")
+            if len(split_result[0].split(' ')) > 3:  # If the first sentence has more than 3 words
+                return split_result[0]
+            else:
+                return '. '.join(split_result[:2])  # Return first two sentences if the first sentence is too short
         else:
             return "Definition not available"
+
 
     def find_acronyms(text):
         """Finds all acronyms in the given text."""
@@ -102,7 +118,7 @@ if check_password():
         st.title("Acronym Finder and Definition Assistant")
         st.markdown(
             """
-            This tool harnesses a multi-faceted approach to uncover acronyms within your text. First, it keenly parses the text itself for immediate definitions. It then employs the power of OpenAI and Wikipedia, cross-referencing the definitions while prioritizing those most related to key fields such as GIS, Geospatial Analysis, Remote Sensing, AI, and others. This intricate process guarantees you not only accurate but also highly relevant interpretations, enriching your understanding of the content at hand.
+            This tool harnesses a multi-faceted approach to uncover acronyms within your text. First, it parses the text itself for immediate definitions. It then employs the power of OpenAI and Wikipedia, cross-referencing the definitions while prioritizing those most related to key fields such as GIS, Geospatial Analysis, Remote Sensing, AI, and others. This process increases highly relevant interpretations, enriching your understanding of the content at hand.
             """
         )
 
