@@ -109,9 +109,10 @@ def get_acronym_definition(acronym, text):
 
 def find_acronyms(text):
     """Finds all acronyms in the given text."""
-
-    acronyms = re.findall(r'\b[A-Z]{2,}\b', text)
+    potential_acronyms = re.findall(r'\b([A-Z0-9]{2,}\b)(?!-[a-z])', text)
+    acronyms = [word for word in potential_acronyms if not word[-1].islower()]
     return acronyms
+
 
 
 def find_acronym_definitions(user_input):
