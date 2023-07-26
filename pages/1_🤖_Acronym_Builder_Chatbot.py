@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import re
 import openai
+import spacy 
 
 def check_password():
     """Returns `True` if the user had the correct password."""
