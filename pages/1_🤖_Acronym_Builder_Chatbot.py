@@ -94,9 +94,9 @@ if check_password():
             st.markdown("### **Acronyms and Definitions:**")
             for acronym, definition in acronym_definitions.items():
                 if definition is not None:
-                    st.markdown(f"**{acronym}**: {definition}, which is an acronym for {acronym_definitions[acronym]}")
+                    st.markdown(f"{acronym} - {definition}")
                 else:
-                    st.markdown(f"**{acronym}**: Definition not found")
+                    st.markdown(f"{acronym} - Definition not found")
 
     if __name__ == "__main__":
         main_page()
