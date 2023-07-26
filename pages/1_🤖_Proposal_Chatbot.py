@@ -58,10 +58,6 @@ if check_password():
 
     model_engine = "text-davinci-003"
 
-    openai.api_key = st.secrets["OPENAI_API_KEY"]
-
-    model_engine = "text-davinci-003"
-
     def revise_text(prompt, text_to_revise):
         revised_text_response = openai.Completion.create(
             engine=model_engine,
