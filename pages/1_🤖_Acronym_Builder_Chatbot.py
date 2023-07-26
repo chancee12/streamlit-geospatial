@@ -65,6 +65,7 @@ if check_password():
                     engine=model_engine,
                     prompt=f"In the context of {field}, what is {acronym}?",
                     max_tokens=100,
+                    temperature=0.3,
                 )
                 result = response['choices'][0]['text'].strip()
                 if result and acronym in result:  # Check if definition contains the acronym
