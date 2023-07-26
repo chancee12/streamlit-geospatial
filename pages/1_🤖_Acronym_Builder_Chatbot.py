@@ -38,9 +38,10 @@ if check_password():
 
     def find_in_text(acronym, text):
         """Find the definition of the acronym directly in the text."""
-        pattern = re.compile(r"\b(" + re.escape(acronym) + r"\b\s*[-\(\):]\s*\b)([A-Za-z\s]+)")
+        pattern = re.compile(r"\b(" + re.escape(acronym) + r"\)\s*[-\(\):]\s*([A-Za-z\s,]+)\)")
         matches = pattern.findall(text)
         return matches[0][1] if matches else None
+
 
     def get_acronym_definition(acronym, text):
         """Retrieves the definition of an acronym from OpenAI text API or Wikipedia."""
@@ -101,7 +102,7 @@ if check_password():
         st.title("Acronym Finder and Definition Assistant")
         st.markdown(
             """
-            This tool helps find acronyms in the text you provide and fetches their definitions from OpenAI and Wikipedia.
+            This tool harnesses a multi-faceted approach to uncover acronyms within your text. First, it keenly parses the text itself for immediate definitions. It then employs the power of OpenAI and Wikipedia, cross-referencing the definitions while prioritizing those most related to key fields such as GIS, Geospatial Analysis, Remote Sensing, AI, and others. This intricate process guarantees you not only accurate but also highly relevant interpretations, enriching your understanding of the content at hand.
             """
         )
 
