@@ -63,8 +63,8 @@ if check_password():
             try:
                 response = openai.Completion.create(
                     engine=model_engine,
-                    prompt=f"In the context of {field}, what is {acronym}?",
-                    max_tokens=100,
+                    prompt=f"In the field of machine learning and natural language processing, what does the acronym '{acronym}' stand for?",
+                    max_tokens=60,
                     temperature=0.3,
                 )
                 result = response['choices'][0]['text'].strip()
