@@ -5,7 +5,6 @@ import streamlit as st
 
 def check_password():
     """Returns `True` if the user had the correct password."""
-
     def password_entered():
         """Checks whether a password entered by the user is correct."""
         if st.session_state["password"] == st.secrets["password"]:
@@ -15,24 +14,16 @@ def check_password():
             st.session_state["password_correct"] = False
 
     if "password_correct" not in st.session_state:
-        # First run, show input for password.
-        st.text_input(
-            "Password", type="password", on_change=password_entered, key="password"
-        )
+        st.text_input("Password", type="password", on_change=password_entered, key="password")
         return False
     elif not st.session_state["password_correct"]:
-        # Password not correct, show input + error.
-        st.text_input(
-            "Password", type="password", on_change=password_entered, key="password"
-        )
+        st.text_input("Password", type="password", on_change=password_entered, key="password")
         st.error("😕 Password incorrect")
         return False
     else:
-        # Password correct.
-        return True
+        return True  # Password correct.
 
 if check_password():
-
     st.set_page_config(layout="wide")
 
     st.sidebar.title("Contact")
@@ -40,8 +31,7 @@ if check_password():
         """
         Chancee Vincent:
         [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6)
-    )
-
+        """)
 
     @st.cache_data
     def load_cog_list():
@@ -50,20 +40,15 @@ if check_password():
         with open(in_txt) as f:
             return [line.strip() for line in f.readlines()[1:]]
 
-
     @st.cache_data
     def get_palettes():
         return list(cm.palettes.keys())
-        # palettes = dir(palettable.matplotlib)[:-16]
-        # return ["matplotlib." + p for p in palettes]
 
-
-        st.title("Visualize Raster Datasets")
-        st.markdown(
-            """
-        An interactive web app for visualizing local raster datasets and Cloud Optimized GeoTIFF ([COG](https://www.cogeo.org)). The app was built using [streamlit](https://streamlit.io), [leafmap](https://leafmap.org), and [Titiler](https://developmentseed.org/titiler/).
+    st.title("Raster Data Visualization")
+    st.markdown(
+        """
+    An interactive web app for visualizing local raster datasets and Cloud Optimized GeoTIFF ([COG](https://www.cogeo.org)). The app was built using [streamlit](https://streamlit.io), [leafmap](https://leafmap.org), and [Titiler](https://developmentseed.org/titiler/).
         """)
-
 
     row1_col1, row1_col2 = st.columns([2, 1])
 
@@ -73,41 +58,26 @@ if check_password():
 
     with row1_col2:
         empty = st.empty()
-
-        url = empty.text_input(
-            "Enter a HTTP URL to a Cloud Optimized GeoTIFF (COG)",
-            cog,
-        )
-
+        url = empty.text_input("Enter a HTTP URL to a Cloud Optimized GeoTIFF (COG)", cog)
         if url:
             try:
                 options = leafmap.cog_bands(url)
             except Exception as e:
                 st.error(e)
-            if len(options) > 3:
-                default = options[:3]
-            else:
-                default = options[0]
+            default = options[:3] if len(options) > 3 else options[0]
             bands = st.multiselect("Select bands to display", options, default=options)
 
-            if len(bands) == 1 or len(bands) == 3:
-                pass
-            else:
+            if len(bands) not in [1, 3]:
                 st.error("Please select one or three bands")
 
         add_params = st.checkbox("Add visualization parameters")
-        if add_params:
-            vis_params = st.text_area("Enter visualization parameters", "{}")
-        else:
-            vis_params = {}
+        vis_params = st.text_area("Enter visualization parameters", "{}") if add_params else {}
 
         if len(vis_params) > 0:
             try:
                 vis_params = eval(vis_params)
             except Exception as e:
-                st.error(
-                    f"Invalid visualization parameters. It should be a dictionary. Error: {e}"
-                )
+                st.error(f"Invalid visualization parameters. It should be a dictionary. Error: {e}")
                 vis_params = {}
 
         submit = st.button("Submit")
