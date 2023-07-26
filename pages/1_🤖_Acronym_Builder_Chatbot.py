@@ -31,40 +31,50 @@ def check_password():
         # Password correct.
         return True
 
-openai.api_key = st.secrets["OPENAI_API_KEY"]
-model_engine = "text-davinci-003"
-def get_acronym_definition(acronym):
-    """Retrieves the definition of an acronym from OpenAI text API or Wikipedia."""
+# Load the spaCy language model
+nlp = spacy.load("en_core_web_sm")
 
-    # Try to get the definition using the OpenAI text API
-    try:
-        response = openai.Completion.create(
-            engine="text-davinci-003",
-            prompt=f"What is {acronym}?",
-            max_tokens=100,
-        )
-        if response['choices'][0]['text'].strip():
-            return response['choices'][0]['text'].strip()
+# Replace 'YOUR_OPENAI_API_KEY' with your actual API key from OpenAI
+openai.api_key = 'YOUR_OPENAI_API_KEY'
 
-    except Exception as e:
-        print("Error occurred while using OpenAI API:", e)
+def get_acronym_definition(acronym, text):
+    """Retrieves the definition of an acronym from OpenAI text API or text input."""
 
-    # If the OpenAI API fails or returns an empty response, try using the Wikipedia API
-    wiki_response = requests.get(
-        "https://en.wikipedia.org/w/api.php",
-        params={
-            "action": "opensearch",
-            "format": "json",
-            "limit": 1,
-            "namespace": 0,
-            "search": acronym
-        }
-    ).json()
-
-    if len(wiki_response[1]) > 0:
-        return wiki_response[2][0]  # return the first match in the wiki_response[2] list (description)
+    # Check if the acronym is present in the input text
+    if acronym in text:
+        definition = "Text Input"
     else:
-        return "Definition not available"
+        # Try to get the definition using the OpenAI text API
+        try:
+            response = openai.Completion.create(
+                engine="text-davinci-003",
+                prompt=f"What is {acronym}?",
+                max_tokens=100,
+            )
+            if response['choices'][0]['text'].strip():
+                definition = response['choices'][0]['text'].strip()
+
+        except Exception as e:
+            print("Error occurred while using OpenAI API:", e)
+            definition = "Definition not available"
+
+        # If the OpenAI API fails or returns an empty response, try using the Wikipedia API
+        if definition == "Definition not available":
+            wiki_response = requests.get(
+                "https://en.wikipedia.org/w/api.php",
+                params={
+                    "action": "opensearch",
+                    "format": "json",
+                    "limit": 1,
+                    "namespace": 0,
+                    "search": acronym
+                }
+            ).json()
+
+            if len(wiki_response[1]) > 0:
+                definition = wiki_response[2][0]  # return the first match in the wiki_response[2] list (description)
+
+    return definition
 
 def find_acronyms(text):
     """Finds all acronyms in the given text."""
@@ -74,8 +84,35 @@ def find_acronyms(text):
 
 def find_acronym_definitions(user_input):
     acronyms = find_acronyms(user_input)
-    acronym_definitions = {acronym: get_acronym_definition(acronym) for acronym in acronyms}
+    acronym_definitions = {}
+    for acronym in acronyms:
+        definition = get_acronym_definition(acronym, user_input)
+        acronym_definitions[acronym] = definition
+
     return acronym_definitions
+
+def prioritize_definitions(acronym_definitions, text):
+    """Prioritizes military, intelligence, and GIS-related definitions based on entity recognition."""
+
+    prioritized_definitions = {}
+    doc = nlp(text)
+
+    for acronym, definition in acronym_definitions.items():
+        priority_score = 0
+        words_in_definition = definition.lower().split()
+
+        for ent in doc.ents:
+            if ent.text.lower() in words_in_definition:
+                if ent.label_ == "ORG" and any(keyword in ent.text.lower() for keyword in ["military", "army", "navy", "air force", "defense", "combat"]):
+                    priority_score += 3
+                elif ent.label_ == "ORG" and any(keyword in ent.text.lower() for keyword in ["intelligence", "security", "espionage", "surveillance", "classified"]):
+                    priority_score += 2
+                elif ent.label_ == "ORG" and any(keyword in ent.text.lower() for keyword in ["gis", "geospatial", "mapping", "geography", "location", "cartography"]):
+                    priority_score += 1
+
+        prioritized_definitions[acronym] = (priority_score, definition)
+
+    return prioritized_definitions
 
 def main():
     st.set_page_config(layout="wide")
@@ -93,9 +130,10 @@ def main():
     if submit_button and user_input:
         with st.spinner("Finding acronyms and their definitions..."):
             acronym_definitions = find_acronym_definitions(user_input)
+            prioritized_definitions = prioritize_definitions(acronym_definitions, user_input)
 
         st.markdown("### **Acronyms and Definitions:**")
-        for acronym, definition in acronym_definitions.items():
+        for acronym, (priority_score, definition) in sorted(prioritized_definitions.items(), key=lambda x: x[1][0], reverse=True):
             st.markdown(f"{acronym} - {definition}")
 
 if __name__ == "__main__":
