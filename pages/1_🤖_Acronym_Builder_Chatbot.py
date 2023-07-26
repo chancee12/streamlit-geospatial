@@ -33,13 +33,6 @@ def check_password():
 
 # Replace 'YOUR_OPENAI_API_KEY' with your actual API key from OpenAI
 openai.api_key = 'YOUR_OPENAI_API_KEY'
-import streamlit as st
-import requests
-import re
-import openai
-
-# Replace 'YOUR_OPENAI_API_KEY' with your actual API key from OpenAI
-openai.api_key = 'YOUR_OPENAI_API_KEY'
 
 def get_acronym_definition(acronym):
     """Retrieves the definition of an acronym from OpenAI text API or Wikipedia."""
@@ -72,7 +65,7 @@ def get_acronym_definition(acronym):
     if len(wiki_response[1]) > 0:
         return wiki_response[2][0]  # return the first match in the wiki_response[2] list (description)
     else:
-        return "Unavailable"
+        return "Definition not available"
 
 def find_acronyms(text):
     """Finds all acronyms in the given text."""
@@ -88,18 +81,10 @@ def find_acronym_definitions(user_input):
 def main():
     st.set_page_config(layout="wide")
 
-    st.sidebar.title("Contact")
-    st.sidebar.info(
-        """
-        Chancee Vincent:
-        [LinkedIn](www.linkedin.com/in/chancee-vincent-4371651b6)
-        """
-    )
-
     st.title("Acronym Finder and Definition Assistant")
     st.markdown(
         """
-        This tool helps find acronyms in the text you provide and fetches their definitions from Wikipedia.
+        This tool helps find acronyms in the text you provide and fetches their definitions from OpenAI and Wikipedia.
         """
     )
 
@@ -112,10 +97,7 @@ def main():
 
         st.markdown("### **Acronyms and Definitions:**")
         for acronym, definition in acronym_definitions.items():
-            if definition is not None and definition != "Unavailable":
-                st.markdown(f"{acronym} - {definition}")
-            else:
-                st.markdown(f"{acronym} - Definition not found")
+            st.markdown(f"{acronym} - {definition}")
 
 if __name__ == "__main__":
     main()
