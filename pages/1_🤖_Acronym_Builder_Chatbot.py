@@ -36,18 +36,21 @@ model_engine = "text-davinci-003"
 def get_acronym_definition(acronym):
     """Retrieves the definition of an acronym from OpenAI text API or Wikipedia."""
 
-    # Try to get the definition using the OpenAI text API
-    try:
-        response = openai.Completion.create(
-            engine="text-davinci-003",
-            prompt=f"What is {acronym}?",
-            max_tokens=100,
-        )
-        if response['choices'][0]['text'].strip():
-            return response['choices'][0]['text'].strip()
+    fields = ["military", "GIS", "intelligence", "proposal"]
 
-    except Exception as e:
-        print("Error occurred while using OpenAI API:", e)
+    for field in fields:
+        # Try to get the definition using the OpenAI text API
+        try:
+            response = openai.Completion.create(
+                engine=model_engine,
+                prompt=f"In the context of {field}, what is {acronym}?",
+                max_tokens=100,
+            )
+            if response['choices'][0]['text'].strip():
+                return response['choices'][0]['text'].strip()
+
+        except Exception as e:
+            print("Error occurred while using OpenAI API:", e)
 
     # If the OpenAI API fails or returns an empty response, try using the Wikipedia API
     wiki_response = requests.get(
