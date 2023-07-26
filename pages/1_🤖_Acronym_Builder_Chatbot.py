@@ -70,7 +70,7 @@ def get_acronym_definition(acronym):
 def find_acronyms(text):
     """Finds all acronyms in the given text."""
 
-    acronyms = re.findall(r'\b[A-Za-z]+\b', text)
+    acronyms = re.findall(r'\b[A-Za-z]+(?:[A-Z-][A-Za-z-]*)*\b', text)
     return acronyms
 
 def find_acronym_definitions(user_input):
