@@ -56,7 +56,7 @@ def get_acronym_definition(acronym, text):
         print(f"Found definition in text: {definition_in_text}")
         return definition_in_text
 
-    fields = ["GIS", "intelligence", "proposal", "AI", "CAD", "BIM", "environmental science", "facility management", "government proposal", "countries", "geography", "coding", "programming"]
+    fields = ["GIS", "Database", "API type", "Abbreviation", "intelligence", "proposal", "AI", "CAD", "BIM", "environmental science", "facility management", "government proposal", "countries", "geography", "coding", "programming"]
 
     definition = None
     for field in fields:
@@ -65,7 +65,7 @@ def get_acronym_definition(acronym, text):
                 engine=model_engine,
                 prompt=f"In the field of {field}, what does the acronym '{acronym}' stand for?",
                 max_tokens=60,
-                temperature=0.3,
+                temperature=0.4,
             )
             result = response['choices'][0]['text'].strip()
             if result and acronym in result:
