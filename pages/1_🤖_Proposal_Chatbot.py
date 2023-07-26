@@ -80,7 +80,7 @@ if check_password():
 
         revision_explanation_response = openai.Completion.create(
             engine=model_engine,
-            prompt=f"Alright dude, I need you to give me a chill, straight-to-the-point explanation in your best surfer lingo. We're looking at some major changes to this text, and I want you to break down why we made these changes, all while keeping the government contracting proposal guidelines in mind. So, let's dive in, man:\n\nOriginal: {text_to_revise}\n\nRevised: {revised_text}",
+            prompt=f"Alright dude, I need you to give me a chill, straight-to-the-point explanation in your best surfer lingo. We're looking at some major or minor changes to this text, and I want you to break down why we made these changes, all while keeping the government contracting proposal guidelines in mind. So, let's dive in, man:\n\nOriginal: {text_to_revise}\n\nRevised: {revised_text}",
             max_tokens=1000,
             temperature=0.85
         )

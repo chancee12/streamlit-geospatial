@@ -58,7 +58,7 @@ def app():
             engine=model_engine,
             prompt=prompt,
             max_tokens=2500,
-            temperature=0.75
+            temperature=0.7
         )
         return model_response['choices'][0]['text'].strip()
 
