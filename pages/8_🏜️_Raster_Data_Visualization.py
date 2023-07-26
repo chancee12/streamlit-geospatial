@@ -58,11 +58,11 @@ if check_password():
         # return ["matplotlib." + p for p in palettes]
 
 
-    st.title("Visualize Raster Datasets")
-    st.markdown(
-        """
-    An interactive web app for visualizing local raster datasets and Cloud Optimized GeoTIFF ([COG](https://www.cogeo.org)). The app was built using [streamlit](https://streamlit.io), [leafmap](https://leafmap.org), and [Titiler](https://developmentseed.org/titiler/).
-    """)
+        st.title("Visualize Raster Datasets")
+        st.markdown(
+            """
+        An interactive web app for visualizing local raster datasets and Cloud Optimized GeoTIFF ([COG](https://www.cogeo.org)). The app was built using [streamlit](https://streamlit.io), [leafmap](https://leafmap.org), and [Titiler](https://developmentseed.org/titiler/).
+        """)
 
 
     row1_col1, row1_col2 = st.columns([2, 1])
