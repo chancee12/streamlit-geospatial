@@ -60,33 +60,7 @@ def find_acronyms(text):
 def find_acronym_definitions(user_input):
     acronyms = find_acronyms(user_input)
     acronym_definitions = {acronym: get_acronym_definition(acronym) for acronym in acronyms}
-        
-    prompt = f"The following acronyms were found in the text: {' '.join(acronyms)}"
-    openai_response = openai.Completion.create(
-        engine=model_engine,
-        prompt=prompt,
-        max_tokens=100,
-        temperature=0.5
-    )
-    structured_response = openai_response.choices[0].text.strip()
-
-    return structured_response, acronym_definitions
-
-def main_page():
-    user_input = st.text_area("Paste the text from which you'd like to extract acronyms:", height=200)
-    submit_button = st.button("Submit")
-
-    if submit_button and user_input:
-        with st.spinner("Finding acronyms and their definitions..."):
-            structured_response, acronym_definitions = find_acronym_definitions(user_input)
-
-        st.markdown("### **Acronyms and Definitions:**")
-        st.markdown(structured_response)
-        for acronym, definition in acronym_definitions.items():
-            if definition is not None:
-                st.markdown(f"**{acronym}**: {definition}")
-            else:
-                st.markdown(f"**{acronym}**: Definition not found")
+    return acronym_definitions
 
 if check_password():
     st.set_page_config(layout="wide")
@@ -102,12 +76,27 @@ if check_password():
     st.title("Acronym Finder and Definition Assistant")
     st.markdown(
         """
-        This tool helps to find acronyms in the text you provide and fetches their definitions from Wikipedia.
+        This tool helps find acronyms in the text you provide and fetches their definitions from Wikipedia.
         """
     )
 
     openai.api_key = st.secrets["OPENAI_API_KEY"]
     model_engine = "text-davinci-003"
 
-if __name__ == "__main__":
-    main_page()
+    def main_page():
+        user_input = st.text_area("Paste the text from which you'd like to extract acronyms:", height=200)
+        submit_button = st.button("Submit")
+
+        if submit_button and user_input:
+            with st.spinner("Finding acronyms and their definitions..."):
+                acronym_definitions = find_acronym_definitions(user_input)
+
+            st.markdown("### **Acronyms and Definitions:**")
+            for acronym, definition in acronym_definitions.items():
+                if definition is not None:
+                    st.markdown(f"**{acronym}**: {definition}")
+                else:
+                    st.markdown(f"**{acronym}**: Definition not found")
+
+    if __name__ == "__main__":
+        main_page()
