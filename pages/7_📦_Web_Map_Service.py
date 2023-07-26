@@ -34,12 +34,6 @@ if check_password():
 
     st.set_page_config(layout="wide")
 
-    st.sidebar.info(
-        """
-        - Hugging Face: <https://huggingface.co/Chancee12>
-        - GitHub repository: <https://github.com/chancee12/>
-        """
-    )
 
     st.sidebar.title("Contact")
     st.sidebar.info(

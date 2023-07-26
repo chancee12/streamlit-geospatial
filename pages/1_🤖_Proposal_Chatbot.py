@@ -43,7 +43,7 @@ if check_password():
         """
     )
 
-    st.title("Axim's Proposal Chatbot Beta V.1.0.3")
+    st.title("Chancee's Proposal Chatbot Beta V.1.0.3")
     st.markdown(
         """
         This AI assistant is designed specifically to revise government contracting proposals. Utilizing GPT-3, it assists in:

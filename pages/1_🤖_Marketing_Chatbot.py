@@ -31,7 +31,7 @@ def check_password():
         return True
 
 def app():
-    st.title("Axim's SEO Chatbot Beta V.1.0.0")
+    st.title("Chancee's Marketing Chatbot Beta V.1.0.0")
     st.markdown(
     """
     This SEO Chatbot is designed specifically to assist with search engine optimization tasks. Powered by GPT-3, it helps in:
