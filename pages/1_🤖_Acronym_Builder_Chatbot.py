@@ -38,14 +38,13 @@ if check_password():
 
     def find_in_text(acronym, text):
         """Find the definition of the acronym directly in the text."""
-        # The updated pattern now looks for definitions that include alphabetical, 
-        # numerical characters, as well as some punctuation like comma and dash.
-        pattern = re.compile(r"\b(" + re.escape(acronym) + r")\s*[-\(\):]\s*([\w\s,-]+)")
+        pattern = re.compile(r"\b" + re.escape(acronym) + r"(?:\s*[-(]\s*|\s+)([A-Z][A-Za-z0-9\s,]*[A-Za-z0-9])")
         matches = pattern.findall(text)
         if matches:
             # Strip leading/trailing white space and return the definition
-            return matches[0][1].strip()
+            return matches[0].strip()
         return None
+
 
 
     def get_acronym_definition(acronym, text):
@@ -67,7 +66,7 @@ if check_password():
                     max_tokens=100,
                 )
                 result = response['choices'][0]['text'].strip()
-                if result:
+                if result and acronym in result:  # Check if definition contains the acronym
                     # Updated to include more of the text if the first sentence is too short
                     split_result = result.split(".")
                     if len(split_result[0].split(' ')) > 3:  # If the first sentence has more than 3 words
@@ -79,27 +78,29 @@ if check_password():
                 print("Error occurred while using OpenAI API:", e)
 
         # If the OpenAI API fails or returns an empty response, try using the Wikipedia API
-        wiki_response = requests.get(
-            "https://en.wikipedia.org/w/api.php",
-            params={
-                "action": "opensearch",
-                "format": "json",
-                "limit": 1,
-                "namespace": 0,
-                "search": acronym
-            }
-        ).json()
+        try:
+            wiki_response = requests.get(
+                "https://en.wikipedia.org/w/api.php",
+                params={
+                    "action": "opensearch",
+                    "format": "json",
+                    "limit": 1,
+                    "namespace": 0,
+                    "search": acronym
+                }
+            ).json()
 
-        if len(wiki_response[1]) > 0:
-            # Similar update here to avoid cutting off valid definitions
-            split_result = wiki_response[2][0].split(".")
-            if len(split_result[0].split(' ')) > 3:  # If the first sentence has more than 3 words
-                return split_result[0]
-            else:
-                return '. '.join(split_result[:2])  # Return first two sentences if the first sentence is too short
-        else:
-            return "Definition not available"
-
+            if len(wiki_response[1]) > 0 and acronym in wiki_response[2][0]:  # Check if definition contains the acronym
+                # Similar update here to avoid cutting off valid definitions
+                split_result = wiki_response[2][0].split(".")
+                if len(split_result[0].split(' ')) > 3:  # If the first sentence has more than 3 words
+                    return split_result[0]
+                else:
+                    return '. '.join(split_result[:2])  # Return first two sentences if the first sentence is too short
+        except Exception as e:
+            print("Error occurred while using Wikipedia API:", e)
+            
+        return "Definition not available"
 
     def find_acronyms(text):
         """Finds all acronyms in the given text."""
