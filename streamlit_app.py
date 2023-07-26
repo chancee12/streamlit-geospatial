@@ -70,7 +70,7 @@ if check_password():
 
     st.markdown(
         """
-        Welcome to this unique platform combining the power of AI and Geospatial technologies. We feature interactive web apps that leverage 
+        Welcome to this unique platform combining the power of AI and Geospatial technologies. Featuring interactive web apps that leverage 
         [openai](https://openai.com)'s GPT-3 model, [streamlit](https://streamlit.io) for web deployment, and an array of open-source mapping libraries like 
         [leafmap](https://leafmap.org), [geemap](https://geemap.org), [pydeck](https://deckgl.readthedocs.io), and [kepler.gl](https://docs.kepler.gl/docs/keplergl-jupyter).
         For questions ask Chancee.
@@ -79,27 +79,14 @@ if check_password():
 
     st.markdown(
         """
-        The applications range from AI-assisted text generation to geospatial data visualization and manipulation. But we're not stopping there. 
-        We're continuously exploring ways to expand AI integration beyond the realm of Natural Language Processing into the exciting field of GIS. 
+        The applications range from AI-assisted text generation to geospatial data visualization and manipulation.
+        Continuously exploring ways to expand AI integration beyond the realm of Natural Language Processing into the exciting field of GIS. 
         Stay tuned for more innovative integrations!
-        """
-    )
-
-    st.markdown(
-        """
-        This is aimed to be an Axim open-source project. You are welcome to contribute your comments, questions, resources, and apps as 
-        [pull requests](https://github.com/chancee12/streamlit-geospatial/pulls) to the [GitHub repository](https://github.com/chancee12/streamlit-geospatial).
         """
     )
 
     st.info("To navigate to different applications, click on the options in the left sidebar menu.")
 
-    st.subheader("Remember AI Won't Replace You, Someone Using AI.. Maybe.")
-    st.markdown(
-        """
-        Nothing on this streamlit app represents Axim, everything is for fun and created by Chancee
-        """
-    )
 
 row1_col1, row1_col2, row1_col3, row1_col4 = st.columns(4)
 with row1_col1:
