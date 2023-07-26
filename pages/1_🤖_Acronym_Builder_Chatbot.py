@@ -101,8 +101,16 @@ def get_acronym_definition(acronym, text):
                 else:
                     print(f"Found definition in Wikipedia: {'. '.join(split_result[:2])}")
                     definition = '. '.join(split_result[:2])
+            else:
+                # Fetch the definition using acronyms.io API
+                response = requests.get(f"https://acronyms.io/{acronym}/json")
+                if response.status_code == 200:
+                    data = response.json()
+                    if data and "definition" in data:
+                        definition = data["definition"]
+
         except Exception as e:
-            logging.error("Error occurred while using Wikipedia API: ", exc_info=True)
+            logging.error("Error occurred while fetching acronym definition from acronyms.io: ", exc_info=True)
 
     # Parse the definition to remove "ACRONYM stands for " part
     if definition and acronym in definition:
