@@ -56,7 +56,7 @@ def get_acronym_definition(acronym, text):
         print(f"Found definition in text: {definition_in_text}")
         return definition_in_text
 
-    fields = ["GIS", "intelligence", "proposal", "AI", "CAD", "BIM", "environmental science", "facility management", "government proposal"]
+    fields = ["GIS", "intelligence", "proposal", "AI", "CAD", "BIM", "environmental science", "facility management", "government proposal", "countries", "geography", "coding", "programming"]
 
     definition = None
     for field in fields:
