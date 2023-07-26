@@ -35,11 +35,10 @@ def check_password():
         # Password correct.
         return True
 
-def find_acronyms(text):
-    """Finds all acronyms in the given text."""
-    potential_acronyms = re.findall(r'\b([A-Z0-9]{2,}\b)(?!-[a-z])', text)
-    acronyms = [word for word in potential_acronyms if not word[-1].islower() and not word.isnumeric()]
-    return acronyms
+def find_in_text(acronym, text):
+    """Finds the definition of an acronym in the given text."""
+    match = re.search(fr'\b({acronym})\b \(([^\)]+)\)', text)
+    return match.group(2) if match else None
 
 
 def get_acronym_definition(acronym, text):
