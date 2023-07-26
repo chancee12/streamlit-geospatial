@@ -33,10 +33,22 @@ def check_password():
 
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 model_engine = "text-davinci-003"
-def get_acronym_definition(acronym):
+
+def find_in_text(acronym, text):
+    """Find the definition of the acronym directly in the text."""
+    pattern = re.compile(r"\b(" + re.escape(acronym) + r"\b\s*-\s*\b)([A-Za-z\s]+)")
+    matches = pattern.findall(text)
+    return matches[0][1] if matches else None
+
+def get_acronym_definition(acronym, text):
     """Retrieves the definition of an acronym from OpenAI text API or Wikipedia."""
 
-    fields = ["military", "GIS", "intelligence", "proposal"]
+    # Check if the definition is in the text
+    definition_in_text = find_in_text(acronym, text)
+    if definition_in_text:
+        return definition_in_text
+
+    fields = ["military", "GIS", "intelligence", "proposal", "AI"]
 
     for field in fields:
         # Try to get the definition using the OpenAI text API
@@ -77,7 +89,7 @@ def find_acronyms(text):
 
 def find_acronym_definitions(user_input):
     acronyms = find_acronyms(user_input)
-    acronym_definitions = {acronym: get_acronym_definition(acronym) for acronym in acronyms}
+    acronym_definitions = {acronym: get_acronym_definition(acronym, user_input) for acronym in acronyms}
     return acronym_definitions
 
 def main():
