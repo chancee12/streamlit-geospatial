@@ -31,10 +31,27 @@ def check_password():
         # Password correct.
         return True
 
-def get_acronym_definition(acronym):
-    """Retrieves the definition of an acronym from Wikipedia."""
+# Replace 'YOUR_OPENAI_API_KEY' with your actual API key from OpenAI
+openai.api_key = 'YOUR_OPENAI_API_KEY'
 
-    response = requests.get(
+def get_acronym_definition(acronym):
+    """Retrieves the definition of an acronym from OpenAI text API or Wikipedia."""
+
+    # Try to get the definition using the OpenAI text API
+    try:
+        response = openai.Completion.create(
+            engine="text-davinci-003",
+            prompt=f"What is {acronym}?",
+            max_tokens=100,
+        )
+        if response['choices'][0]['text'].strip():
+            return response['choices'][0]['text'].strip()
+
+    except Exception as e:
+        print("Error occurred while using OpenAI API:", e)
+
+    # If the OpenAI API fails, try using the Wikipedia API
+    wiki_response = requests.get(
         "https://en.wikipedia.org/w/api.php",
         params={
             "action": "opensearch",
@@ -45,16 +62,15 @@ def get_acronym_definition(acronym):
         }
     ).json()
 
-    if len(response[1]) > 0:
-        return response[1][0]  # return the first match
+    if len(wiki_response[1]) > 0:
+        return wiki_response[2][0]  # return the first match in the wiki_response[2] list (description)
     else:
-        return None
+        return "Unavailable"
 
 def find_acronyms(text):
     """Finds all acronyms in the given text."""
 
-    # matches any uppercase word of at least two letters
-    re.findall(r'\b[A-Z]+[a-z]*[A-Z]*\b', text)
+    acronyms = re.findall(r'\b[A-Za-z]+\b', text)
     return acronyms
 
 def find_acronym_definitions(user_input):
@@ -62,7 +78,7 @@ def find_acronym_definitions(user_input):
     acronym_definitions = {acronym: get_acronym_definition(acronym) for acronym in acronyms}
     return acronym_definitions
 
-if check_password():
+def main():
     st.set_page_config(layout="wide")
 
     st.sidebar.title("Contact")
@@ -80,23 +96,19 @@ if check_password():
         """
     )
 
-    openai.api_key = st.secrets["OPENAI_API_KEY"]
-    model_engine = "text-davinci-003"
+    user_input = st.text_area("Paste the text from which you'd like to extract acronyms:", height=200)
+    submit_button = st.button("Submit")
 
-    def main_page():
-        user_input = st.text_area("Paste the text from which you'd like to extract acronyms:", height=200)
-        submit_button = st.button("Submit")
+    if submit_button and user_input:
+        with st.spinner("Finding acronyms and their definitions..."):
+            acronym_definitions = find_acronym_definitions(user_input)
 
-        if submit_button and user_input:
-            with st.spinner("Finding acronyms and their definitions..."):
-                acronym_definitions = find_acronym_definitions(user_input)
+        st.markdown("### **Acronyms and Definitions:**")
+        for acronym, definition in acronym_definitions.items():
+            if definition is not None:
+                st.markdown(f"{acronym} - {definition}")
+            else:
+                st.markdown(f"{acronym} - Definition not found")
 
-            st.markdown("### **Acronyms and Definitions:**")
-            for acronym, definition in acronym_definitions.items():
-                if definition is not None:
-                    st.markdown(f"{acronym} - {definition}")
-                else:
-                    st.markdown(f"{acronym} - Definition not found")
-
-    if __name__ == "__main__":
-        main_page()
+if __name__ == "__main__":
+    main()
