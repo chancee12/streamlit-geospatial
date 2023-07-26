@@ -33,6 +33,13 @@ def check_password():
 
 # Replace 'YOUR_OPENAI_API_KEY' with your actual API key from OpenAI
 openai.api_key = 'YOUR_OPENAI_API_KEY'
+import streamlit as st
+import requests
+import re
+import openai
+
+# Replace 'YOUR_OPENAI_API_KEY' with your actual API key from OpenAI
+openai.api_key = 'YOUR_OPENAI_API_KEY'
 
 def get_acronym_definition(acronym):
     """Retrieves the definition of an acronym from OpenAI text API or Wikipedia."""
@@ -50,7 +57,7 @@ def get_acronym_definition(acronym):
     except Exception as e:
         print("Error occurred while using OpenAI API:", e)
 
-    # If the OpenAI API fails, try using the Wikipedia API
+    # If the OpenAI API fails or returns an empty response, try using the Wikipedia API
     wiki_response = requests.get(
         "https://en.wikipedia.org/w/api.php",
         params={
@@ -105,7 +112,7 @@ def main():
 
         st.markdown("### **Acronyms and Definitions:**")
         for acronym, definition in acronym_definitions.items():
-            if definition is not None:
+            if definition is not None and definition != "Unavailable":
                 st.markdown(f"{acronym} - {definition}")
             else:
                 st.markdown(f"{acronym} - Definition not found")
