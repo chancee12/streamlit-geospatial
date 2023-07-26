@@ -53,6 +53,7 @@ if check_password():
         # Check if the definition is in the text
         definition_in_text = find_in_text(acronym, text)
         if definition_in_text:
+            print(f"Found definition in text: {definition_in_text}")
             return definition_in_text
 
         fields = ["military", "GIS", "intelligence", "proposal", "AI"]
@@ -70,8 +71,10 @@ if check_password():
                     # Updated to include more of the text if the first sentence is too short
                     split_result = result.split(".")
                     if len(split_result[0].split(' ')) > 3:  # If the first sentence has more than 3 words
+                        print(f"Found definition in OpenAI API: {split_result[0]}")
                         return split_result[0]
                     else:
+                        print(f"Found definition in OpenAI API: {'. '.join(split_result[:2])}")
                         return '. '.join(split_result[:2])  # Return first two sentences if the first sentence is too short
 
             except Exception as e:
@@ -94,12 +97,14 @@ if check_password():
                 # Similar update here to avoid cutting off valid definitions
                 split_result = wiki_response[2][0].split(".")
                 if len(split_result[0].split(' ')) > 3:  # If the first sentence has more than 3 words
+                    print(f"Found definition in Wikipedia: {split_result[0]}")
                     return split_result[0]
                 else:
+                    print(f"Found definition in Wikipedia: {'. '.join(split_result[:2])}")
                     return '. '.join(split_result[:2])  # Return first two sentences if the first sentence is too short
         except Exception as e:
             print("Error occurred while using Wikipedia API:", e)
-            
+
         return "Definition not available"
 
     def find_acronyms(text):
