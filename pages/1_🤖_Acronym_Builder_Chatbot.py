@@ -54,7 +54,7 @@ def find_acronyms(text):
     """Finds all acronyms in the given text."""
 
     # matches any uppercase word of at least two letters
-    acronyms = re.findall(r'\b[A-Z]{2,}\b', text)
+    re.findall(r'\b[A-Z]+[a-z]*[A-Z]*\b', text)
     return acronyms
 
 def find_acronym_definitions(user_input):
