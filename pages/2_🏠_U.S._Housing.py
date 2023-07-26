@@ -9,6 +9,8 @@ import geopandas as gpd
 import streamlit as st
 import leafmap.colormaps as cm
 from leafmap.common import hex_to_rgb
+from pathlib import Path
+
 
 def check_password():
     """Returns `True` if the user had the correct password."""
@@ -53,7 +55,8 @@ if check_password():
     STREAMLIT_STATIC_PATH = pathlib.Path(st.__path__[0]) / "static"
     # We create a downloads directory within the streamlit static asset directory
     # and we write output files to it
-    DOWNLOADS_PATH = STREAMLIT_STATIC_PATH / "downloads"
+    DOWNLOADS_PATH = Path('/home/chancee.vincent/downloads')
+    DOWNLOADS_PATH.mkdir(parents=True, exist_ok=True)
     if not DOWNLOADS_PATH.is_dir():
         DOWNLOADS_PATH.mkdir()
 
