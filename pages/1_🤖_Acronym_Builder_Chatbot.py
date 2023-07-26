@@ -115,9 +115,9 @@ def find_acronyms(text):
 
 
 def find_acronym_definitions(user_input):
-    acronyms = find_acronyms(user_input)
-    acronym_definitions = {acronym: get_acronym_definition(acronym, user_input) for acronym in acronyms}
-    return acronym_definitions
+    acronym_definitions = {acronym: get_acronym_definition(acronym, user_input) for acronym in find_acronyms(user_input)}
+    return dict(sorted(acronym_definitions.items()))
+
 
 
 def main():
