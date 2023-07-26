@@ -31,9 +31,8 @@ def check_password():
         # Password correct.
         return True
 
-# Replace 'YOUR_OPENAI_API_KEY' with your actual API key from OpenAI
-openai.api_key = 'YOUR_OPENAI_API_KEY'
-
+openai.api_key = st.secrets["OPENAI_API_KEY"]
+model_engine = "text-davinci-003"
 def get_acronym_definition(acronym):
     """Retrieves the definition of an acronym from OpenAI text API or Wikipedia."""
 
@@ -70,7 +69,7 @@ def get_acronym_definition(acronym):
 def find_acronyms(text):
     """Finds all acronyms in the given text."""
 
-    acronyms = re.findall(r'\b[A-Za-z]+(?:[A-Z-][A-Za-z-]*)*\b', text)
+    acronyms = re.findall(r'\b[A-Z]{2,}\b', text)
     return acronyms
 
 def find_acronym_definitions(user_input):
