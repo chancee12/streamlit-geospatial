@@ -31,87 +31,90 @@ def check_password():
         # Password correct.
         return True
 
-openai.api_key = st.secrets["OPENAI_API_KEY"]
-model_engine = "text-davinci-003"
+if check_password():
 
-def find_in_text(acronym, text):
-    """Find the definition of the acronym directly in the text."""
-    pattern = re.compile(r"\b(" + re.escape(acronym) + r"\b\s*-\s*\b)([A-Za-z\s]+)")
-    matches = pattern.findall(text)
-    return matches[0][1] if matches else None
+    openai.api_key = st.secrets["OPENAI_API_KEY"]
+    model_engine = "text-davinci-003"
 
-def get_acronym_definition(acronym, text):
-    """Retrieves the definition of an acronym from OpenAI text API or Wikipedia."""
+    def find_in_text(acronym, text):
+        """Find the definition of the acronym directly in the text."""
+        pattern = re.compile(r"\b(" + re.escape(acronym) + r"\b\s*[-\(\):]\s*\b)([A-Za-z\s]+)")
+        matches = pattern.findall(text)
+        return matches[0][1] if matches else None
 
-    # Check if the definition is in the text
-    definition_in_text = find_in_text(acronym, text)
-    if definition_in_text:
-        return definition_in_text
+    def get_acronym_definition(acronym, text):
+        """Retrieves the definition of an acronym from OpenAI text API or Wikipedia."""
 
-    fields = ["military", "GIS", "intelligence", "proposal", "AI"]
+        # Check if the definition is in the text
+        definition_in_text = find_in_text(acronym, text)
+        if definition_in_text:
+            return definition_in_text
 
-    for field in fields:
-        # Try to get the definition using the OpenAI text API
-        try:
-            response = openai.Completion.create(
-                engine=model_engine,
-                prompt=f"In the context of {field}, what is {acronym}?",
-                max_tokens=100,
-            )
-            if response['choices'][0]['text'].strip():
-                return response['choices'][0]['text'].strip()
+        fields = ["military", "GIS", "intelligence", "proposal", "AI"]
 
-        except Exception as e:
-            print("Error occurred while using OpenAI API:", e)
+        for field in fields:
+            # Try to get the definition using the OpenAI text API
+            try:
+                response = openai.Completion.create(
+                    engine=model_engine,
+                    prompt=f"In the context of {field}, what is {acronym}?",
+                    max_tokens=100,
+                )
+                result = response['choices'][0]['text'].strip()
+                if result:
+                    return result.split(".")[0]  # return the first sentence or phrase of the definition
 
-    # If the OpenAI API fails or returns an empty response, try using the Wikipedia API
-    wiki_response = requests.get(
-        "https://en.wikipedia.org/w/api.php",
-        params={
-            "action": "opensearch",
-            "format": "json",
-            "limit": 1,
-            "namespace": 0,
-            "search": acronym
-        }
-    ).json()
+            except Exception as e:
+                print("Error occurred while using OpenAI API:", e)
 
-    if len(wiki_response[1]) > 0:
-        return wiki_response[2][0]  # return the first match in the wiki_response[2] list (description)
-    else:
-        return "Definition not available"
+        # If the OpenAI API fails or returns an empty response, try using the Wikipedia API
+        wiki_response = requests.get(
+            "https://en.wikipedia.org/w/api.php",
+            params={
+                "action": "opensearch",
+                "format": "json",
+                "limit": 1,
+                "namespace": 0,
+                "search": acronym
+            }
+        ).json()
 
-def find_acronyms(text):
-    """Finds all acronyms in the given text."""
+        if len(wiki_response[1]) > 0:
+            return wiki_response[2][0].split(".")[0]  # return the first sentence or phrase of the definition
+        else:
+            return "Definition not available"
 
-    acronyms = re.findall(r'\b[A-Z]{2,}\b', text)
-    return acronyms
+    def find_acronyms(text):
+        """Finds all acronyms in the given text."""
 
-def find_acronym_definitions(user_input):
-    acronyms = find_acronyms(user_input)
-    acronym_definitions = {acronym: get_acronym_definition(acronym, user_input) for acronym in acronyms}
-    return acronym_definitions
+        acronyms = re.findall(r'\b[A-Z]{2,}\b', text)
+        return acronyms
 
-def main():
-    st.set_page_config(layout="wide")
+    def find_acronym_definitions(user_input):
+        acronyms = find_acronyms(user_input)
+        acronym_definitions = {acronym: get_acronym_definition(acronym, user_input) for acronym in acronyms}
+        return acronym_definitions
 
-    st.title("Acronym Finder and Definition Assistant")
-    st.markdown(
-        """
-        This tool helps find acronyms in the text you provide and fetches their definitions from OpenAI and Wikipedia.
-        """
-    )
+    def main():
+        st.set_page_config(layout="wide")
 
-    user_input = st.text_area("Paste the text from which you'd like to extract acronyms:", height=200)
-    submit_button = st.button("Submit")
+        st.title("Acronym Finder and Definition Assistant")
+        st.markdown(
+            """
+            This tool helps find acronyms in the text you provide and fetches their definitions from OpenAI and Wikipedia.
+            """
+        )
 
-    if submit_button and user_input:
-        with st.spinner("Finding acronyms and their definitions..."):
-            acronym_definitions = find_acronym_definitions(user_input)
+        user_input = st.text_area("Paste the text from which you'd like to extract acronyms:", height=200)
+        submit_button = st.button("Submit")
 
-        st.markdown("### **Acronyms and Definitions:**")
-        for acronym, definition in acronym_definitions.items():
-            st.markdown(f"{acronym} - {definition}")
+        if submit_button and user_input:
+            with st.spinner("Finding acronyms and their definitions..."):
+                acronym_definitions = find_acronym_definitions(user_input)
 
-if __name__ == "__main__":
-    main()
+            st.markdown("### **Acronyms and Definitions:**")
+            for acronym, definition in acronym_definitions.items():
+                st.markdown(f"{acronym} - {definition}")
+
+    if __name__ == "__main__":
+        main()
